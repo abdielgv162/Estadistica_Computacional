@@ -17,10 +17,8 @@
 
 ---
 
-## Tabla de contenido:
-- [Tabla de contenido:](#tabla-de-contenido)
-- [Objetivos](#objetivos)
-- [Introduccion a la Programación Dinámica](#introduccion-a-la-programación-dinámica)
+  - [Objetivos](#objetivos)
+  - [Introduccion a la Programación Dinámica](#introduccion-a-la-programación-dinámica)
 
 ---
 
