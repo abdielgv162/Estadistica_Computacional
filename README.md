@@ -5,3 +5,19 @@
 </div>
 
 ---
+
+- [Objetivos](#objetivos)
+
+
+---
+######  Documento basado en el curso de Estadistica Computacional de Platzi impartido por David Eroesti.
+
+## Objetivos
+
+* Aprender cuándo utilizar Programación Dinámica y sus beneficios.
+* Entender la diferencia entre programas deterministas y estocásticos.
+* Aprender a utilizar Programacion Estocástica.
+* Aprender a crear simulaciones computacionales válidas.
+
+
+
