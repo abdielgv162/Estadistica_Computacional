@@ -19,6 +19,8 @@
 
   - [Objetivos](#objetivos)
   - [Introduccion a la Programación Dinámica](#introduccion-a-la-programación-dinámica)
+  - [Optimizacion de Fibonacci](#Optimizacion-de-Fibonacci)
+  - [Explicacion Fibonacci recursivo vs Fibonacci Dinámico](#explicación-fibonacci-recursivo-vs-fibonacci-dinámico)
 
 ---
 
@@ -61,3 +63,53 @@ La optimizacion para que el programa se ejecute mucho más rápido se logra a tr
 - <i>Intercambia: Tiempo vs Espacio en memoria.</i>
   
 La <strong>memorización</strong> nos ayuda a evitar computos adicionales, guardando el resultado de computaciones previas en alguna estructura de datos que podemos consultar rápidamente.
+
+## Optimizacion de Fibonacci
+
+Recordemos los numeros de Fibonacci.
+
+<div align="center">
+    <img src="https://lh3.googleusercontent.com/proxy/UFpKF4tnWm_gO3UI34Cn5BBVV4px66heCV_AaFDD3R5Zgjq_-tff97XyTTdXDT9wg57J3O4-agOLLtzqp437uGVGfYzb6r-ofp4W-abPDCfQOLx1DROL2aV3g8yBjHmUta5iBrhYvNKVlFOqdb3iHDI" >
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/PascalTriangleFibanacci.svg/360px-PascalTriangleFibanacci.svg.png" width="350" height="250" >
+</div>
+
+La forma recursiva de Fibonacci <i>f(n) = f<sub>n-1</sub> + f<sub>n-2 </sub></i> es muy fácil de implementar en código, pero es poco eficiente ya que repetimos el mismo computo muchas veces, aumentando innecesariamente la cantidad de iteraciones.
+
+Para optimizar esta función haremos uso de la memorización anteriormente mencionada.
+Aqui tenemos una implementación de <i>Fibonacci Recursivo vs Fibonacci Dinámico: </i>
+```py
+
+    import sys
+
+def fibonacci_recursivo(n):
+    if n == 0 or n == 1:
+        return 1
+
+    return fibonacci_recursivo(n-1) + fibonacci_recursivo(n-2)
+
+def fibonacci_dinamico(n, memoria={}):
+    if n == 0 or n == 1 :
+        return 1
+    try:
+        return memoria[n]
+    except KeyError:
+        resultado = fibonacci_dinamico(n-1, memoria) + fibonacci_dinamico(n-2, memoria)
+        memoria[n] = resultado
+
+        return resultado
+    
+
+
+
+if __name__ == "__main__":
+    sys.setrecursionlimit(10000)
+    n = int(input("Escoge un numero: "))
+    # resultado = fibonacci_recursivo(n)
+    resultado = fibonacci_dinamico(n)
+    print(resultado)
+
+```
+
+## Explicación Fibonacci Recursivo vs Fibonacci Dinámico
+
+
