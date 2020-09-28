@@ -21,7 +21,7 @@
   - [Introduccion a la Programación Dinámica](#introduccion-a-la-programación-dinámica)
   - [Optimizacion de Fibonacci](#Optimizacion-de-Fibonacci)
     - [Explicacion Fibonacci recursivo vs Fibonacci Dinámico](#explicación-fibonacci-recursivo-vs-fibonacci-dinámico)
-
+      - [Porque usar diccionarios y no listas?](#por-que-usar-diccionario-y-no-listas)
 ---
 
 ## Objetivos
@@ -172,7 +172,7 @@ import sys
 
 Estas lineas nos ayudan a incrementar el límite de recursividad limitado por python, importando la librería <i>sys</i> para seleccionar el limite de recursión.
 
-<b>Por que usar diccionario y no listas?</b>
+### Por que usar diccionario y no listas?
 
 <i>El algoritmo que usa Python internamente para buscar un elemento en un diccionario es muy distinto que el que utiliza para buscar en listas.
 
