@@ -44,7 +44,7 @@ El matemático Richard Bellman inventó la programación dinámica en 1953 que s
     <h5>Richard Bellman</h5>
 </div>
 
-Funfact :
+Fun fact :
 El nombre de Programación Dinámica lo escogió Bellman para esconder a los patrocinadores gubernamentales que financiaban su investigacion, el hecho que en realidad estaba haciendo matemáticas. Lo usó para que ningún congresista pudiera oponerse a ese nombre tan atractivo.
 
 La programación dinámica permite optimizar ciertos problemas que cuentan con.
