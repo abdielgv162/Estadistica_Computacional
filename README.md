@@ -131,7 +131,8 @@ def fibonacci_dinamico(n, memoria={}):
         return resultado
 ```
 
-Aqui tenemos la version <i>dinámica</i>
+Aqui tenemos la version <i>dinámica</i>.
+
 Primero definimos la función <i>fibonacci_dinamico()</i>, donde a diferencia de la primera tenemos un parametro extra llamado <i>memoria{}</i> , que es un diccionario que en este caso será nuestra estructura de datos para efectuar la <i>memorización</i>
 
 Ahora tenemos algo nuevo llamado <i>try/except</i>, este es un buen mecanismo para el control del flujo del programa ya que nos permite manejar la excepciones que puedan surgir y tomar acciones de recuperación para evitar la interrupción del programa o, al menos, para realizar algunas acciones adicionales antes de interrumpirlo.
@@ -141,6 +142,7 @@ Ahora tenemos algo nuevo llamado <i>try/except</i>, este es un buen mecanismo pa
         return memoria[n]
 ```
 Dentro del bloque try se ubica todo el código que pueda llegar a levantar una excepción, se utiliza el término levantar para referirse a la acción de <i>generar una excepción</i>.
+
 Si tenemos como llave [n] en el diccionario, regresemos n.
 
 ```py
@@ -150,6 +152,7 @@ Si tenemos como llave [n] en el diccionario, regresemos n.
         return resultado
 ```
 El bloque except se encarga de capturar la excepción y nos da la oportunidad de procesarla.
+
 Si no tenemos como llave [n] en el diccionario, anticiparemos el KeyError que nos saldría al intentar acceder a una llave que no existe.
 
 Nos anticiparemos llamando a la funcion <i>fibonacci_dinamico()</i> para <i>(n-1) y (n-2)</i>, pero en este caso tendremos como parametro extra el diccionario <i>memoria{}</i>. Despues guardaremos en <i>memoria{}</i> el resultado anterior y retornaremos este para la siguiente iteración.
