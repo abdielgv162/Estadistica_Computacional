@@ -18,10 +18,15 @@
 ---
 
   - [Objetivos](#objetivos)
-  - [Introduccion a la Programación Dinámica](#introduccion-a-la-programación-dinámica)
-  - [Optimizacion de Fibonacci](#Optimizacion-de-Fibonacci)
-    - [Explicacion Fibonacci recursivo vs Fibonacci Dinámico](#explicación-fibonacci-recursivo-vs-fibonacci-dinámico)
-      - [Porque usar diccionarios y no listas?](#por-que-usar-diccionario-y-no-listas)
+  - [Programacion dinámica](#programacion-dinámica)
+    - [Introduccion a la Programación Dinámica](#introduccion-a-la-programación-dinámica)
+    - [Optimizacion de Fibonacci](#Optimizacion-de-Fibonacci)
+      - [Explicacion Fibonacci recursivo vs Fibonacci Dinámico](#explicación-fibonacci-recursivo-vs-fibonacci-dinámico)
+        - [Porque usar diccionarios y no listas?](#por-que-usar-diccionario-y-no-listas)
+  - [Caminos aleatorios](#caminos-aleatorios)
+    - [Qué son los caminos aleatorios?](#qué-son-los-caminos-aleatorios)
+      -[Quantum cloud sculpture](#quantum-cloud-sculpture) 
+
 ---
 
 ## Objetivos
@@ -34,7 +39,9 @@
 
 ---
 
-## Introduccion a la Programación Dinámica
+## Programacion dinámica
+
+### Introduccion a la Programación Dinámica
 
 <i>La programación dinámica es es un método para reducir el tiempo de ejecución de un algoritmo mediante la utilización de subproblemas superpuestos y subestructuras óptimas.</i>
 
@@ -66,7 +73,7 @@ La <strong>memorización</strong> nos ayuda a evitar computos adicionales, guard
 
 ---
 
-## Optimizacion de Fibonacci
+### Optimizacion de Fibonacci
 
 Recordemos los numeros de Fibonacci.
 
@@ -106,7 +113,7 @@ if __name__ == "__main__":
 ```
 ---
 
-### Explicación Fibonacci Recursivo vs Fibonacci Dinámico
+#### Explicación Fibonacci Recursivo vs Fibonacci Dinámico
 
 ```py
 def fibonacci_recursivo(n):
@@ -177,10 +184,46 @@ Estas lineas nos ayudan a incrementar el límite de recursividad limitado por py
 
 ---
 
-### Por que usar diccionario y no listas?
+#### Por que usar diccionario y no listas?
 
-<i>El algoritmo que usa Python internamente para buscar un elemento en un diccionario es muy distinto que el que utiliza para buscar en listas.
+El algoritmo que usa Python internamente para buscar un elemento en un diccionario es muy distinto que el que utiliza para buscar en listas.
 
-Para buscar en las listas, se utiliza un algoritmos de comparación que tarda cada vez más a medida que la lista se hace más larga. En cambio, para buscar en diccionarios se utiliza un algoritmo llamado hash, que se basa en realizar un cálculo numérico sobre la clave del elemento, y tiene una propiedad muy interesante: sin importar cuántos elementos tenga el diccionario, el tiempo de búsqueda es siempre aproximadamente igual (O(1)).
+<i>Para buscar en las listas, se utiliza un algoritmos de comparación que tarda cada vez más a medida que la lista se hace más larga. En cambio, para buscar en diccionarios se utiliza un algoritmo llamado hash, que se basa en realizar un cálculo numérico sobre la clave del elemento, y tiene una propiedad muy interesante: sin importar cuántos elementos tenga el diccionario, el tiempo de búsqueda es siempre aproximadamente igual (O(1)).
 
 Este algoritmo de hash es también la razón por la cual las claves de los diccionarios deben ser inmutables, ya que la operación hecha sobre las claves debe dar siempre el mismo resultado, y si se utilizara una variable mutable esto no sería posible.</i>
+
+---
+
+## Caminos aleatorios
+
+### Qué son los caminos aleatorios?
+
+* Es un tipo de simulación que elige aleatoriamente una decisión dentro de un conjunto de decisiones válidas.
+
+* Se utilizan en muchos campos del conocimiento cuando los sistemas <i>no son deterministas</i> e incluyen elementos de aleatoriedad.
+
+* Nos permiten realizar simulaciones de eventos de carácter probabilístico o no determinista para entender su comportamiento desde otra perspectiva de análisis.
+
+
+<div align="center">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c2/Brownian_motion_large.gif" width="300" height="300" ><img src="https://bardofmars.files.wordpress.com/2017/08/tumblr_n8zcbhqz8f1qio57co1_1280.gif" width="300" height="300" >
+    <h6>Movimiento browniano y simulación de una fusión de dos galaxias a través de millones de años, respectivamente</h6>
+</div>
+
+---
+
+#### Quantum cloud sculpture
+
+La nube cuantica es una escultura diseñada por Antony Gormley , situada junto a la Cúpula del Milenio en Londres. Está construido a partir de una colección de unidades tetraédricas hechas de secciones de acero de 1,5 m de largo.
+
+<i>Las secciones de acero se organizaron utilizando un modelo de computadora con un algoritmo de caminata aleatoria a partir de puntos en la superficie de una figura ampliada basada en el cuerpo de Gormley que forma un contorno residual en el centro de la escultura.</i>
+
+Al diseñar Quantum Cloud , Antony Gormley fue influenciado por Basil Hiley , físico cuántico (y antiguo colega de David Bohm ). La idea de la nube cuántica vino de los pensamientos de Hiley en pre-espacio como una estructura matemática que subyace en el espacio-tiempo y la materia, y su comentario de que “el álgebra es la relación de las relaciones.” El comentario se hizo durante una conversación entre Gormley, Hiley y el escritor David Peat en una reunión de artistas y científicos en Londres en 1999, organizada por Peat.
+
+<div align="center">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Antony_Gormley_Quantum_Cloud_2000.jpg" width="300" height="400" ><img src="https://www.lusas.com/case/civil/images/ani_qc_wind.gif" width="300" height="400" >
+    <h6>Quantum cloud sculpture</h6>
+</div>
+
+---
+
