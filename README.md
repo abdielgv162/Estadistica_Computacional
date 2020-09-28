@@ -155,9 +155,18 @@ El bloque except se encarga de capturar la excepción y nos da la oportunidad de
 
 Si no tenemos como llave [n] en el diccionario, anticiparemos el KeyError que nos saldría al intentar acceder a una llave que no existe.
 
-Nos anticiparemos llamando a la funcion <i>fibonacci_dinamico()</i> para <i>(n-1) y (n-2)</i>, pero en este caso tendremos como parametro extra el diccionario <i>memoria{}</i>. Despues guardaremos en <i>memoria{}</i> el resultado anterior y retornaremos este para la siguiente iteración.
+Nos anticiparemos llamando a la funcion <i>fibonacci_dinamico()</i> para <i>(n-1) y (n-2)</i>, pero en este caso tendremos como parametro extra el diccionario <i>memoria{}</i>. Después guardaremos en <i>memoria{}</i> el resultado anterior y retornaremos este para la siguiente iteración.
 
-Esta es la parte diferenciadora entre la versión recursiva simple y la versión dinámica, ya que al tener los resultados de iteraciones anteriores dentro del diccionario nos ahorraremos el tiempo del calcular todos los resultados anteriores de n, a solo tener que buscar ese resultado anterior dentro del diccionario y sumarlo, lo cual hace MUCHO más eficiente el algoritmo.
+Esta es la parte diferenciadora entre la versión recursiva simple y la versión dinámica, ya que al tener los resultados de iteraciones anteriores dentro del diccionario nos ahorraremos el tiempo del calcular todos los resultados anteriores de <i>n</i> para solo tener que buscar ese resultado anterior dentro del diccionario y sumarlo, lo cual hace MUCHO más eficiente el algoritmo.
 
 Tan solo calcular n=50 con <i>fibonacci_recursivo()</i> toma muchísimo más tiempo que calcular n=500 con <i>fibonacci_dinamico()</i>.
 
+```py
+import sys
+    .
+    .
+    .
+    sys.setrecursionlimit(10000)
+```
+
+Estas lineas nos ayudan a incrementar el límite de recursividad limitado por python, importando la librería <i>sys</i> para seleccionar el limite de recursión.
