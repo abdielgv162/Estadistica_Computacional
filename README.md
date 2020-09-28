@@ -20,7 +20,7 @@
   - [Objetivos](#objetivos)
   - [Introduccion a la Programación Dinámica](#introduccion-a-la-programación-dinámica)
   - [Optimizacion de Fibonacci](#Optimizacion-de-Fibonacci)
-  - [Explicacion Fibonacci recursivo vs Fibonacci Dinámico](#explicación-fibonacci-recursivo-vs-fibonacci-dinámico)
+    - [Explicacion Fibonacci recursivo vs Fibonacci Dinámico](#explicación-fibonacci-recursivo-vs-fibonacci-dinámico)
 
 ---
 
@@ -78,13 +78,11 @@ La forma recursiva de Fibonacci <i>f(n) = f<sub>n-1</sub> + f<sub>n-2 </sub></i>
 Para optimizar esta función haremos uso de la memorización anteriormente mencionada.
 Aqui tenemos una implementación de <i>Fibonacci Recursivo vs Fibonacci Dinámico: </i>
 ```py
-
-    import sys
+import sys
 
 def fibonacci_recursivo(n):
     if n == 0 or n == 1:
         return 1
-
     return fibonacci_recursivo(n-1) + fibonacci_recursivo(n-2)
 
 def fibonacci_dinamico(n, memoria={}):
@@ -95,11 +93,7 @@ def fibonacci_dinamico(n, memoria={}):
     except KeyError:
         resultado = fibonacci_dinamico(n-1, memoria) + fibonacci_dinamico(n-2, memoria)
         memoria[n] = resultado
-
         return resultado
-    
-
-
 
 if __name__ == "__main__":
     sys.setrecursionlimit(10000)
@@ -107,9 +101,60 @@ if __name__ == "__main__":
     # resultado = fibonacci_recursivo(n)
     resultado = fibonacci_dinamico(n)
     print(resultado)
-
 ```
 
-## Explicación Fibonacci Recursivo vs Fibonacci Dinámico
+### Explicación Fibonacci Recursivo vs Fibonacci Dinámico
 
+```py
+def fibonacci_recursivo(n):
+    if n == 0 or n == 1:
+        return 1
+    return fibonacci_recursivo(n-1) + fibonacci_recursivo(n-2)
+```
+
+En esta parte tenemos la función de <i>fibonacci_recursivo()</i>.
+Definimos la función con un parámetro <i>n</i> de entrada, ahora en el primer <i>if</i>, cómo sabemos que el caso base de Fibonacci para 0 y 1 es igual a 1 solo retornamos 1. 
+
+De no ser así, retornaremos una llamada recursiva de Fibonacci para el numero anterior (n-1) más el numero anterior a ese (n-2).
+
+Recordemos que la recursividad es la forma en la cual se especifica un proceso basado en su propia definición, que en este caso es una función que se llama a sí misma.
+
+```py
+def fibonacci_dinamico(n, memoria={}):
+    if n == 0 or n == 1 :
+        return 1
+    try:
+        return memoria[n]
+    except KeyError:
+        resultado = fibonacci_dinamico(n-1, memoria) + fibonacci_dinamico(n-2, memoria)
+        memoria[n] = resultado
+        return resultado
+```
+
+Aqui tenemos la version <i>dinámica</i>
+Primero definimos la función <i>fibonacci_dinamico()</i>, donde a diferencia de la primera tenemos un parametro extra llamado <i>memoria{}</i> , que es un diccionario que en este caso será nuestra estructura de datos para efectuar la <i>memorización</i>
+
+Ahora tenemos algo nuevo llamado <i>try/except</i>, este es un buen mecanismo para el control del flujo del programa ya que nos permite manejar la excepciones que puedan surgir y tomar acciones de recuperación para evitar la interrupción del programa o, al menos, para realizar algunas acciones adicionales antes de interrumpirlo.
+
+```py
+    try:
+        return memoria[n]
+```
+Dentro del bloque try se ubica todo el código que pueda llegar a levantar una excepción, se utiliza el término levantar para referirse a la acción de <i>generar una excepción</i>.
+Si tenemos como llave [n] en el diccionario, regresemos n.
+
+```py
+    except KeyError:
+        resultado = fibonacci_dinamico(n-1, memoria) + fibonacci_dinamico(n-2, memoria)
+        memoria[n] = resultado
+        return resultado
+```
+El bloque except se encarga de capturar la excepción y nos da la oportunidad de procesarla.
+Si no tenemos como llave [n] en el diccionario, anticiparemos el KeyError que nos saldría al intentar acceder a una llave que no existe.
+
+Nos anticiparemos llamando a la funcion <i>fibonacci_dinamico()</i> para <i>(n-1) y (n-2)</i>, pero en este caso tendremos como parametro extra el diccionario <i>memoria{}</i>. Despues guardaremos en <i>memoria{}</i> el resultado anterior y retornaremos este para la siguiente iteración.
+
+Esta es la parte diferenciadora entre la versión recursiva simple y la versión dinámica, ya que al tener los resultados de iteraciones anteriores dentro del diccionario nos ahorraremos el tiempo del calcular todos los resultados anteriores de n, a solo tener que buscar ese resultado anterior dentro del diccionario y sumarlo, lo cual hace MUCHO más eficiente el algoritmo.
+
+Tan solo calcular n=50 con <i>fibonacci_recursivo()</i> toma muchísimo más tiempo que calcular n=500 con <i>fibonacci_dinamico()</i>.
 
