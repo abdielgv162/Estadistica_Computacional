@@ -14,6 +14,7 @@ def fibonacci_dinamico(n, memoria={}):
     except KeyError:
         resultado = fibonacci_dinamico(n-1, memoria) + fibonacci_dinamico(n-2, memoria)
         memoria[n] = resultado
+        #print(memoria)
 
         return resultado
 
