@@ -113,6 +113,7 @@ def fibonacci_recursivo(n):
 ```
 
 En esta parte tenemos la función de <i>fibonacci_recursivo()</i>.
+
 Definimos la función con un parámetro <i>n</i> de entrada, ahora en el primer <i>if</i> cómo sabemos que el caso base de Fibonacci para 0 y 1 es igual a 1 solo retornamos 1. 
 
 De no ser así, retornaremos una llamada recursiva de Fibonacci para el numero anterior (n-1) más el numero anterior a ese (n-2).
