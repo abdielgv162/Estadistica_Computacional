@@ -64,6 +64,8 @@ La optimizacion para que el programa se ejecute mucho más rápido se logra a tr
   
 La <strong>memorización</strong> nos ayuda a evitar computos adicionales, guardando el resultado de computaciones previas en alguna estructura de datos que podemos consultar rápidamente.
 
+---
+
 ## Optimizacion de Fibonacci
 
 Recordemos los numeros de Fibonacci.
@@ -102,6 +104,7 @@ if __name__ == "__main__":
     resultado = fibonacci_dinamico(n)
     print(resultado)
 ```
+---
 
 ### Explicación Fibonacci Recursivo vs Fibonacci Dinámico
 
@@ -171,6 +174,8 @@ import sys
 ```
 
 Estas lineas nos ayudan a incrementar el límite de recursividad limitado por python, importando la librería <i>sys</i> para seleccionar el limite de recursión.
+
+---
 
 ### Por que usar diccionario y no listas?
 
