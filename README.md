@@ -27,6 +27,7 @@
     - [¿Qué son los caminos aleatorios?](#qué-son-los-caminos-aleatorios)
      - [Caminata aleatoria](#caminana-aleatoria)
      - [Desarrollando la simulación](#desarrollando-la-simulación)
+       - [Explicacion de la simulación](#explicacion-de-simulación)
 
 ---
 
@@ -79,8 +80,9 @@ La <strong>memorización</strong> nos ayuda a evitar computos adicionales, guard
 Recordemos los numeros de Fibonacci.
 
 <div align="center">
-    <img src="https://lh3.googleusercontent.com/proxy/VukrJ6Oxe7tPB5i2SMVUhIJZTRe36SMJLDWjn9GUy61M7TNvViAuDcJWTAhnRuiFUHmwutd1t352H8L1WIAmbVml6kM2Fn_isBz-XlKHbTbpm5YwP38tWnuC0w" width="250" >
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAP4AAADGCAMAAADFYc2jAAAAjVBMVEX///8AAAD8/Pzq6urm5ubj4+P39/eZmZny8vL19fXU1NTu7u7a2tqUlJS/v7/f399/f3+2trZbW1ulpaXMzMyvr69mZmaqqqrFxcV1dXXV1dVgYGCOjo6fn5/IyMg2NjZsbGyFhYV6eno/Pz9JSUlRUVEtLS1UVFQ7OzskJCQgICAUFBQNDQ0aGhopKSmdzRoKAAAVdUlEQVR4nO1diXqqOhDOAgHZw46AAoJLt/d/vJuASsClpy2t9tb/O59HENJMMpnMTCYTAB544IGPwE8bH9HEtG9dkZtAN3X/2VGQGpFbV+UW0GLGANAAIJrduiq3wCxXcVFuDcP7k70P/EDxQeD80bEPgMq7ffY3+/4PQ/U8Tzkgzz0v125dpZ8EhnBnzLW5pmlz36zWEG6uv1Ao6Gdq9jOIX2AmXKrls3/1eTP43vpMB7I4dtSMXnoIlfA5Fm8EztVCm4VsfLlmP4JKoDmJLz2F1nA90HYCnX/qWZIUDBUePl5TL/wVM4RXCRf66uKcLj/Dzel4JvKyjjXNe9YHtxcvFF9syXuCupLES9O7+GQE4Zkf0brk/9XDu1lR+OoEtft2xLvBpbW6/GgCn07Hs/8cgVkAmuHdRjNzZYrqfR+0tFjaIHLZV5SndbVZM8Y3XrsfsbGH3TP8bAV3+rgUBfq4lx6Sk9bOOgQUYO++7aJZGgPXAB7nXSsHWWq9MVUGbzsZ5nt7BIIA8yEsx8VUL3nxMmMN2E6EpQaevcz9BXyv18vEYhOayb7jGVgpRGYdjVeLK+8oEI6mRqkOEeacX0TtJQAw1vGZV+8Nql8ttxLwWm0GAWgB0pLfqTNH5jdEaU9SdzSb+TAG6pwV4Gq6zsuhWxn8gs4HqwgYS0Z+wb7nkcUGfsYolddd3c8yP7A2446lsPsdNVbmAFQZSQH0Oxd6LWBgFzmrP5+yXsvwxcq4nuo/XXlFXo00XTmvodkaP9rOl9lQgsraNUL52yo9HfS8dVtIa/5dwbLZkhYll9/A67FcwF6+t/2cpNYIZxpgKSezwz3DEY0TUlyWfHo9EHtkoALWUknzaSv2M5jVQm/F1WU7NRwO6XKgLZZAUwY3fg1s70gySS7rKolo8AJSnWgAvxU9G1+20VAukivRAl639/9nsGBYJXsUmxWE61vX6CchNakrInV/jTfngQe+CisUXNvEj3+VbvN1qFthWjAj64p2+H9E7IJjh6srZjH9TiXns8gUuo59yuHPGfnbP7XMA4pU83UscajGFoDlr3DkTgW7WRS62q7zmVTivf8brNrJYCVqmBwHfxJoxQ0r8/OwNRT3Wj4Ogt/gz3vggQceeOCB+0GrNv2SCJDJIYchtK3C+12LApOh5O5DBQDtT3lMj+Bec+jO/ir5C0uurHJjKH/KcuphBRogVj6/dT0e+FkQQmZHEI5b1+hHUSaJeQCPiUx+ymuK5Htw0AUQJqrUwTC06iRe6LuA8ub9h74fCnwZEJwdYyKnDQo60ai87Nxj/4Z9f13W0mb7J94dyvoGDt3k5b41KGfOA2P8Y0D8/ml85nFqjW6Uc59+soX9ZrWq63pdXXw/q/kDy39wAUsQuuI16drU50Jg5rR/Z7n+R30obP/qujkzgxJ3ONZxWEZPn9UzVMgbM64GNwd1jCAPjgjPj+TBkxRC8+QJfdOFUyc8rpbUV3p/0KubdmPF6pwCsagGnGjsrkRvvAcKmZ5C1GEY/6ATm5CAGVDO9/7gSeTAp5Pe9bsIeFwXfNgWV8gXy0LQA0RF5blFJ9wM7lIlT6TPipeixoDOyXBdPxQvYAAkhfh79tJNA+TG+ScB3sJ6LEWqLnbIZ8XoJrgcWT4sy4Ax0CwQnJU4ZVdbpCxAroGUGi/Bv4mUuZJzeN6R3NfCzjf6KABGrIgGPcONDlexE9dL8xmfe5LBhrAY/cll924ANX/L2PtKP4llla/UbxjD4cHj+0rmKf80ijjcKfAjo17zIg4rXuxLsp+ToGIDXwu8jiSEZRm77EPeD6jsyfSY3FNjPqyRp6pNZGX8NyQdnhSaToFwFCDSyUzkPEX5E6MlEQLJkGXue20mj8qqm0BZ2QAnQlidTjPaPu+14fmBBKrKcL40q0bPPliYYFYYcTd7SpnjlOvScap9KGDDOqUwAPbawFDC2NIGbSUkZ/+kI4z3WTHeDPbWSjR9mQDVZe+VAvnEe9u38TzZl1V2clLdZQAV7EspyMNcMZq2Lb1dVxXpTQMf2lkWV06HbP9a1cUyyaxyq36FR2BD/LZXKuRlezmL33Skn3uyA12OBv+yJUCGh9ZcyH2IpVqLMlsoi750ZGNX147TXKCArBXRXlsVXTcgBuc0g4vQ5T326oe6KbqSHaC+nhVo1mFrm8wbSlpZaQHi/NyTLQx3LPrrVtoF+zFKtguz31miXyLffO7+n7tWJuydwnXbFjnXJHRXUbbEzr5gWZlLCBteIid/3W93Sg9fUP0Kl90025FfN6WbCOMtBUOsTtQDk3H7PIVw2UYQxjDDWPe4XZTrI/KPZelbCOs2KtOHGdDVrLWj2HXW8gRKuHhR0yZtkmKSfddSivRNX5VzxlrH/Hysiew2fFKtIzCG1IjLpk6kBJrwvNh3Z/6q4yfecd8NMumct65c40NVJgJJokyQ2GcmE917i88s/w6eJMXA+Ji1KhupRG2u0Wl5nPtRtA6EAk7d46gxcvf4On1udlz0fcXEuQB9blxvTCLb8nvDrBxqo0rXoHba30UyUG3SX9ny9XlLRqp9ZErdtvm7en2fq/DKQKNVleW+4nhson0N9D7XEKyVjfd2qqRZnnu6Pez/jDmE2+UBT5DhPnn0mxDkXmtO7I0Kwax44IH/O+Rt0V8g0y3/V3ku3kciqHy5A5prro3/H9BKjXu3iAeqvxUd7q99xZU688Tg1tnfygIVrLJeQQVIsf7W2DdpSf35ofdNGZw6vf/HUCtshb119rZ+/lN6D8KIaEd+VyXpjwZ4PPDAAw888IshFw4G83Jiz6oTxkAvs7sP/JRMFL1QZrhOmr4jk6V16ciA3nvcN4/M9SCzXIIJVRg94OvgrEH9ew/9NBj52ZrZrfmUsVmM8kWzloB1D+F4VxHklQWcJpy0okaWlYCuil9gErQBb3jiZF0q94CTv7VV/HdBNwxjrrUZfNnnnF1NwQK80K5IXiq7uler0IAQmof8zVm6htD5gPMmt86vhrJiynxfqFnU7G98ICIv/slEkYMUhio2lvAD3Z9fWN6bs1Y8XhDdzj4S9hyvfnJts4Bw4KvMPrBiGQbk/AKfBeEgRVi8/fdC45J8KJDna5BXcJCcE+37LQqCyIsiem2xf2vRcf7HDqSCu8Es6nWqrx+xQr0ouKYImpF1Ejj0jaBwkL/7EJa+qKFlxA68MnGRF0u/wCvkBQ46HHXjGVcwM+bZ6zVdoC6x8r2+83gQiJBBeCaQtw3OBWpyZfk6qF3By40HLaG9wOLMK9mOv3DNDCJviXMl+donQcR4VmtAPnLh6+nMZDBxJRuqeVYOqe2/wgrM3sstDcOlT9PCMsxCl0d0Z+fFK+J1jBO9nk9sJWlJ4WXFsY+H5APtDSYnwsaCOg/vPkc9UpIyKktQItvp2VQajoOZC9cnjWrsPGCEZwsFVlF4TmKwupVfXTkJ0rBDx7tShWyo7Y72bDxi9nMB+uFLvYUYIEvMf4lamexZYOkoy9GwwCMxMHuDyzETW7CuYcRmRjGEW7V5M/kZWEAdThsf1EHSQO7qVivFKFNFkoR9iAuzDoRjfoOltChUoLpCw+hezWvKZgNIJbGiNlOdsoaffCFISjqa/QAfETZOWRGeGAVmWg1rYtkGjqN+drfKe3APfWMzNTTPmUoq0qsun0d9qbORizkTusJzxN9nwNdH2R5VVqhVcO1Z1NiU8egntYt44w30pUWNgrTl9repjENvyPx2Tthc07td4jGLycvxVOM9dfO2vNLLvq7dcm6kmU23jVnEmPnZrDEmRz20x4bSzbH/DeAVCCw8zNqUfoeB6KzKp9zv07iORB+Qxqm91bh+9drWokuLesTi8AmQWvKh6a4kc9yE0ph8ZxSGTDQFdumE0do0TN1vS8V81wordZMmO2p9y3KpXAVGFfXydkS+uhl3E+aBWy35eZFqAB2iw3E79iNnHjgnU7c8Ou5DGZ/+otJcydu/pPH06gC3pRLGJXMVAd+xfOdnTkubD9xvpBiEpwxqoKY4649pQf5ycXFOUodtmA+pH7xmmlp5PPqGmNb8lpGRWTkM0RUv9Fz1zeN41LOq/EdzzNoMRrE1aPDIlvIjA8phEd7QIeYN99wFxeBXJLIDUmf/aIvP1wN6jdV4q5JQ6IyQ2wWIBOK2OlWu4BR+absW+p5gCq8fA3Q7LGBGgz08JX2G9QSKh9ps+kLzajlyKdwP7Gc4whQrPfW40PXfCn964JcgDsXBrk0zSGVHVKywdr+8bwubkYlD3Y84ui8jEcgPSmV9t6e9+AXSDxTLtWq/TLE5Q22IemzGKgDpD+X3+DgCGiXa3G8BJDA/PbjqE9BcLTHlrlAVq7P6XmMcUNjIkW1061E8Y8Qk+YtpTbUYd4Uyvlem35E3EciqYhoZbfe7U0CiOZ7A6EJZltjAbwsNdGAF+n1uSmOSr7CXtiZ3x7cx8zYqJhj76kZuSn9/Mhaab/LqO1x4U2AegOwol3CWFMoEva96ZN57yL0iCe935nvggQceeOBvA/EDeMniG0wUgzvOjTuPcUyKVSwVwYUl6C/AKpoQRGV011GOkQyklxU/mXbignEEgPOqMAvznvufO/lDfm7J1KtNNuUBX/mdk489QMtyrWXXzvP9FEwVh4snc2HereeDw+AHEsfVN9jnSqkDVcnu1fZ74C+DbtKi7PK8JUWRblz3utd39m56o/0oV9M03RfsFEXICs6v27/4X/O8Tgl/B1Ojy/M2j+PAXMLrLir7XHpVETQzuwXRAsKgW8y3/ZhG7PK6+IvSW7gHRpF4era8Gmmiv8Md8UYNu3V7vIZizjLiL68f801vkw8igcPlXa/LUUFwh5HMtkMpvtYAhgOi/erx/Akm4kiZufs0gvuSR51dBPItdEN9DVfi+r3apTczknrDxux2tEhtJYvwum5I3AM3eaPUnlrrUETepk6LYrMejaI6Dr71oFx8wZ1pwXPjnahQ0TGO3OHtBAZ6P4bPpb/2+qCZDRxHznHMHMgKtpth9KfxVMjfmghrHNl1BOul00SEIIYLgBAohneXxgr1MX9n0hvTTD2OccZY69OJQk0bPj+UQ2K90i+nVbuIFahaH5ovkk8j4h+z/5IU7k7Hc7nSQWDMDuwbR/o8wGgLkqivZd5ryTNK9dhC9q5Z9SFL1jPMTuS5wWwg1QSHUE4cxWoQg8yfV1+zuPbrS76vtSQjJYhWQX3kRSGsMaOKW6bHXzAcJ6BlcJu51SeMDiJrVRYmkYEu9wT15JPSyrbWMiC2bQsTnANfThNbQ+oX3iHqa5ZobliudR0R+WvbebTD9qTueHacg8XWSLtMupKEgwizz7YCOQh2OOw5N4Yn+fe0XZHx4H7ahqjIObCh3oiSjBeZUbxPfz+PgFdrp4tlG3iSaTmDZsJ0AJK2M50iA7eM3ek3MhECkmQfTBWYplkU7KPtcYL48QICV6IM1qPpPoAG8JkBjDe8+oiAqBnGaVHTVFx+ZEWbXJn9Mbc8syHB2I3lCloVAHELMGpbXAdoe0byfALxsfcPFWWaBmm/k9mMUMqPF+l+4CHbukA/fhrLRQUyxlR5bl7ityyzUQASBT0vUrH45/7Ga7T/YwOU46gpxGbDdnU9tNR27vN3EpgiqFc/jP1uRs2X1qsFkjMhzfmzDSXg9KJXTccZyORmzx6eSdlAtaDNau2N26gf+2VNXxYgPCEjbkZzI6Iw7tq9XpRvrIeq/JkpUx8i9J8QrKqqUvrh2kt+bxsVpiLousl44qfpy9JpWzFcxwYG8bYyE+9EMvfk55ukKs2TeAZtHDSum6vnsJ0Z/V3JN5GHqbIJsm8IgUM2JoZQbk8+kdkvggBXTqwNyThI8K3lAszDm4F9mu22n/fJ6I91sN/Gcp/PDN3u1tyJco0nqJ1h4ye8Ieoli0sZHroxUEd0FzTjXTA90HXrV9oMvGfDzeKO4XvXjaCfAR1saATWMLrZB/5nPYAojYaXgynQJ6p1Bz4wuRnwrDbe5PBpIGegS6BynPH8HiDvrIMFiiV54cLJghKyVD8UjGU7f50kbHpiSDWsVwcseSTuVEk4c7g8FrziQcRvd3iMmaFkbo8qz6c6aBN5StEXHJr5hcNvHrgpzh6NNQXI+yd93QFM0SEXO9PtLzJqcWEvK+9zmY8KJ3aRzeDya9BFR2+1QOkdzPKnSAQPq5UMK/0l+I163EI626igmnwBdQo0VvSKC773NY0Vh5lgU+0otZyoUrxuV622UnmM9/1hvq5UAlALoFSAbKea+Uq++7ErGOnM6q/uMb49qqJyMbMoh6GFQJtKNVU3ca3pfluwpbKBX9xjDjvH0lyHWYMcBNTWhZMJPw7ckE05J13JgDq0uMd5kLG6aPLQyRwP3DMmnstDHwHODzzwwAO/FIvSvUf17WvoNd13zpYnK8mAg0dmfd7+3zq3xX04q1xepR8FEt6JZoHfe8fwveYreAdz0ddNi3eezsUgJEnMghHc8Tlt8mWFbmiMiW6KMxEhVikujhaiGTtL71Gv73AxuAWA9aDWitC7pwaQHoGo5xVtOfjxG46S/DRm1JMWfVUF8vXAk2N+8CFaeBYCtF1glSIqUZ6FVRcyrvRLr8j35kZgkHD91p1ZbEU+AkHbPjKlMuULt/H2dtLP9/boEsORLPCg8npcs+rJRyUt63KZ8Y5evMWg5A4uu4zDZXfq9WvP/T35QebDrKjBPkQEZab1NAcZl5lytmjSjCc0055vR/5++6xhdKe7ygrrDLs4krI4OtoXFESvOGHVXZbIwaCNw/QMYG5wwTv+rR/PPfkJAtDKj2Je33ozE6N2aTzXwCYzEm48vt1w7iMHHG6EB0mcpWFY12EYHhyZZUdX1sb0pfsw1Hpv67+0/9tuGBa7gn3sWzBeCxMeKvmCEEkOr3TCEy9vyPzdmVGm2aWcJxpYe0A+VrnvfdXXmwjMCYq1hQMBaL3bssxPvW5T772e632fZC77PFwGC7+sMXJ470vyfGcA/pIGb0e+fjgqtQsNVxp+1ndxdN31Yz9f2lAHji6/5cCqu4l8lrjxM5EdTv5zvxh5JB9DuklAvyULRsAPCfA4Oy09cwX0gn3znxDQNnexcZ0WZVb0Q18gn4ZlWRU+IIqThTrnehUgxakqp+K8Ym36LuwnPtcJXGERpCzLQubJpfn3ME+qdmWYNowDNvexmseYQBLi5XrmB3i2D8eVuqHRMJ5GEj8XmV9VwoauXgVQdaCKyq7UalH6igsadr8Vt8i5X2voii1DRWUVi8mm3o0yzsTNb2rzK4/nRWbPGTPnY6sxwuPkJ9NsTwkiDIwPkqDHR2aR72PQ/x/xH/kkUULpTPzQAAAAAElFTkSuQmCC" width="250" >
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/PascalTriangleFibanacci.svg/360px-PascalTriangleFibanacci.svg.png" width="350" height="250" >
+    <br></br>
 </div>
 
 La forma recursiva de Fibonacci <i>f(n) = f<sub>n-1</sub> + f<sub>n-2 </sub></i> es muy fácil de implementar en código, pero es poco eficiente ya que repetimos el mismo computo muchas veces, aumentando innecesariamente la cantidad de iteraciones.
@@ -357,5 +359,45 @@ if __name__ == '__main__':
 
     main(distancias_de_caminata, numero_de_intentos, Aleatorio_Tradicional)    
 ```
+---
 
+#### Explicacion de simulación
 
+```py
+from individuo import Aleatorio_Tradicional
+from campo import Campo
+from coordenada import Coordenada
+```
+
+La primera seccion se encargara de importar las clases `Aleatorio_Tradicional`, `Campo` y `Coordenada` de sus módulos correspondientes.
+
+En nuestro entry point tenemos lo siguiente.
+```py
+if __name__ == '__main__':
+    distancias_de_caminata = [10,100,1000,10000]
+    numero_de_intentos = 100
+
+    main(distancias_de_caminata, numero_de_intentos, Aleatorio_Tradicional)  
+```
+Siempre que hagamos un programa de POO debemos de definir nuestra función `main()`, ya que será el punto de entrada donde definimos que harán nuestros objetos.
+
+Aquí es donde definimos la <i>cantidad de pasos</i> que queremos que el individuo efectue en la simulación y podemos ver que definimos una <i>lista[ ]</i> de valores para tener una cantidad considerable de datos. Lo siguiente es definir cuantas veces vamos a ejecutar nuestra simulación que en este caso es de 100.
+
+Y en el `main()` establecemos los datos que queremos que reciba nuestra simulacion que en este caso serán la cantidad de pasos, el número de intentos de la simulación y la subclase `Aleatorio_Tradicional`.
+
+El siguiente paso será definir `main()`
+
+```py
+def main(distancias_de_caminata, numero_de_intentos, tipo_de_tendencia):
+
+    for pasos in distancias_de_caminata:
+        distancias = simular_caminata(pasos, numero_de_intentos, tipo_de_tendencia)
+        distancia_media = round(sum(distancias) / len(distancias), 4)
+        distancia_maxima = max(distancias)
+        distancia_minima = min(distancias)
+        print(f'{tipo_de_tendencia.__name__} caminata aleatoria de {pasos} pasos')
+        print(f'Media = {distancia_media}')
+        print(f'Distancia maxima = {distancia_maxima}')
+        print(f'Distancia minima = {distancia_minima}')
+```
+Nuestra funcion principal `main()` tendra como parámetros la cantidad de pasos, el número de veces que se correrá la simulación, y la clase que utilizaremos.
