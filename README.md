@@ -441,9 +441,9 @@ if __name__ == '__main__':
 ```
 Siempre que hagamos un programa de POO debemos de definir nuestra función `main()`, ya que será el punto de entrada donde definimos que harán nuestros objetos.
 
-Aquí es donde definimos la <i>cantidad de pasos</i> que queremos que el individuo efectue en la simulación y podemos ver que definimos una <i>lista[ ]</i> de valores para tener una cantidad considerable de datos. Lo siguiente es definir cuantas veces vamos a ejecutar nuestra simulación que en este caso es de 100.
+Aquí es donde definimos la <i>cantidad de pasos</i> que queremos que el individuo efectúe en la simulación y podemos ver que definimos una <i>lista[ ]</i> de valores para tener una cantidad considerable de datos. Lo siguiente es definir cuantas veces vamos a ejecutar nuestra simulación que en este caso es de 100.
 
-Y ejecutamos el `main()` que es donde establecemos los datos que queremos que reciba nuestra simulacion que en este caso serán la cantidad de pasos, el número de intentos de la simulación y la subclase `Aleatorio_Tradicional`.
+Y ejecutamos el `main()` que es donde establecimos los datos que queremos que reciba nuestra simulación que en este caso serán la cantidad de pasos, el número de intentos de la simulación y la subclase `Aleatorio_Tradicional` junto con todo el bloque de intrucciones que escribimos dentro de la función.
 
 ---
 
