@@ -10,8 +10,7 @@
     <img src="https://i.pinimg.com/originals/30/d9/1e/30d91e04235f12b644fcdf15081d164b.gif" width="400" height="250" >
 </div>
 <div align="Center">
-    <br><i>Documento basado en el curso de Estadística Computacional de Platzi.</i></br>
-    <i>Impartido por David Aroesti.</i>
+
 
 </div>
 
@@ -293,7 +292,7 @@ class Campo:
         return self.coordenadas_de_persona[persona]
 ```
 
-Recordemos que el <i>campo</i> modelará el entorno en el que están nuestros individuos y pueden moverse, aquí comenzaremos creando la clase `campo` que no tendrá más parámetros que la referencia a la instancia y definiremos un <i>artibuto de instancia</i> llamado `.coordenadas_de_persona` que simplemente sera un diccionario.
+Recordemos que el <i>campo</i> modelará el entorno en el que están nuestros individuos y pueden moverse, aquí comenzaremos creando la clase `campo` que no tendrá más parámetros que la referencia a la instancia y definiremos un <i>artibuto de instancia</i> llamado `.coordenadas_de_persona` que simplemente sera un diccionario que guardará las coordenadas.
 
 Ahora vamos a crear 3 métodos, el <i>primero</i> será `anadir_persona` que recibira el parametro <i>persona y coordenda</i>, el cual podemos imaginarlo como la acción se situar a algun individuo en el plano, en cierta coordenada. Aquí mismo tendremos una llamada al atributo `.coordenadas_de_persona[persona]` que irá guardando las coordenadas en el diccionario que despúes será de ayuda para trazar su recorrido.
 
@@ -401,3 +400,30 @@ def main(distancias_de_caminata, numero_de_intentos, tipo_de_tendencia):
         print(f'Distancia minima = {distancia_minima}')
 ```
 Nuestra funcion principal `main()` tendra como parámetros la cantidad de pasos, el número de veces que se correrá la simulación, y la clase que utilizaremos.
+
+Ahora, creamos un for para ejecute el siguiente bloque de instrucciones mientras aumenta una variable iteradora `pasos` que representará la cantidad de pasos que dará el individuo en la simulación. Dentro de ese bloque de código creamos la variable `distancias` que hará una llamada a una funcion `simular_caminata()` y guardará el valor arrojado por ella. 
+
+Recordemos que se efectuara varias veces `caminata()` por lo que tendremos diferentes datos y lo que nos interesa son los valores medio, máximo y mínimo de las distancias. Las siguiente instrucciones son para obtener e impimir esos valores deseados usando funciones ya conocidas como `max()`, `min()` y una simple <i>media aritmética</i> redondeada a 3 decimales.
+
+Crearemos la función `simular_caminata()` .
+
+```py
+def simular_caminata(pasos, numero_de_intentos, tipo_de_tendencia):
+    persona = tipo_de_tendencia(nombre = 'Abdiel')
+    origen = Coordenada(0,0)
+    distancias = []
+
+    for _ in range(numero_de_intentos):
+        campo = Campo()
+        campo.anadir_persona(persona, origen)
+        simulacion_caminata = caminata(campo, persona, pasos)
+        distancias.append(round(simulacion_caminata, 1))
+    
+    return distancias
+```
+
+Para esta función nos interesa saber cuantos pasos dio el individuo, el número de veces que se ejecutó la simulación y la subclase a la que nos referimos.
+
+Vamos a crear una variable llamada `persona` que va a inicializar una instancia de la subclase. Despúes definimos el origen de coordenadas <i>(0,0)</i> y creamos una <i>lista[ ]</i> donde guardaremos los valores de las <i>distancias</i> que obtengamos en cada una de la simulaciones. El `for _` significa que no hay variable de iteración sino que solo usaremos un rango que en este caso es el <i>numero_de_intentos</i> de la simulación.
+
+Posteriormente se ejecutara un bloque de instrucciones donde primero haremos una llamada a la clase `Campo()` y ejecutaremos su método `.anadir_persona`.
