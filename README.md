@@ -370,42 +370,24 @@ from coordenada import Coordenada
 
 La primera seccion se encargara de importar las clases `Aleatorio_Tradicional`, `Campo` y `Coordenada` de sus módulos correspondientes.
 
-En nuestro entry point tenemos lo siguiente.
-```py
-if __name__ == '__main__':
-    distancias_de_caminata = [10,100,1000,10000]
-    numero_de_intentos = 100
-
-    main(distancias_de_caminata, numero_de_intentos, Aleatorio_Tradicional)  
-```
-Siempre que hagamos un programa de POO debemos de definir nuestra función `main()`, ya que será el punto de entrada donde definimos que harán nuestros objetos.
-
-Aquí es donde definimos la <i>cantidad de pasos</i> que queremos que el individuo efectue en la simulación y podemos ver que definimos una <i>lista[ ]</i> de valores para tener una cantidad considerable de datos. Lo siguiente es definir cuantas veces vamos a ejecutar nuestra simulación que en este caso es de 100.
-
-Y en el `main()` establecemos los datos que queremos que reciba nuestra simulacion que en este caso serán la cantidad de pasos, el número de intentos de la simulación y la subclase `Aleatorio_Tradicional`.
-
-El siguiente paso será definir `main()`
+Primero crearemos nuestra función `caminata()` para simular el comportamiento de moverse en el plano.
 
 ```py
-def main(distancias_de_caminata, numero_de_intentos, tipo_de_tendencia):
+def caminata(campo, persona, pasos):
+    inicio = campo.obtener_coordenada(persona)
 
-    for pasos in distancias_de_caminata:
-        distancias = simular_caminata(pasos, numero_de_intentos, tipo_de_tendencia)
-        distancia_media = round(sum(distancias) / len(distancias), 4)
-        distancia_maxima = max(distancias)
-        distancia_minima = min(distancias)
-        print(f'{tipo_de_tendencia.__name__} caminata aleatoria de {pasos} pasos')
-        print(f'Media = {distancia_media}')
-        print(f'Distancia maxima = {distancia_maxima}')
-        print(f'Distancia minima = {distancia_minima}')
+    for _ in range(pasos):
+        campo.mover_persona(persona)
+
+    return inicio.distancia(campo.obtener_coordenada(persona))
 ```
-Nuestra funcion principal `main()` tendra como parámetros la cantidad de pasos, el número de veces que se correrá la simulación, y la clase que utilizaremos.
 
-Ahora, creamos un for para ejecute el siguiente bloque de instrucciones mientras aumenta una variable iteradora `pasos` que representará la cantidad de pasos que dará el individuo en la simulación. Dentro de ese bloque de código creamos la variable `distancias` que hará una llamada a una funcion `simular_caminata()` y guardará el valor arrojado por ella. 
+Tendremos como parámetros <i>campo, persona y pasos</i> para deescribir el movimiento en el plano. Y pasamos a crear una variable que nos de el punto inicial de cada movimiento que lo que hará será ejecutar el método de <i>Campo</i> `obtener_coordenada()`.
 
-Recordemos que se efectuara varias veces `caminata()` por lo que tendremos diferentes datos y lo que nos interesa son los valores medio, máximo y mínimo de las distancias. Las siguiente instrucciones son para obtener e impimir esos valores deseados usando funciones ya conocidas como `max()`, `min()` y una simple <i>media aritmética</i> redondeada a 3 decimales.
+Creamos un ciclo `for _` donde no tenemos variable <i>i</i>, eso significa que solo crearemos el rango que será el número de pasos que dé la persona en la simulación. Y en cada iteración o <i>paso</i> vamos a ejecutar el método de <i>Campo</i> `.mover_persona` y retornará el valor en el que se encuentra actualmente la persona para definirlo como el origen de la siguiente iteración.
 
-Crearemos la función `simular_caminata()` .
+
+Después crearemos la función `simular_caminata()` .
 
 ```py
 def simular_caminata(pasos, numero_de_intentos, tipo_de_tendencia):
@@ -424,6 +406,44 @@ def simular_caminata(pasos, numero_de_intentos, tipo_de_tendencia):
 
 Para esta función nos interesa saber cuantos pasos dio el individuo, el número de veces que se ejecutó la simulación y la subclase a la que nos referimos.
 
-Vamos a crear una variable llamada `persona` que va a inicializar una instancia de la subclase. Despúes definimos el origen de coordenadas <i>(0,0)</i> y creamos una <i>lista[ ]</i> donde guardaremos los valores de las <i>distancias</i> que obtengamos en cada una de la simulaciones. El `for _` significa que no hay variable de iteración sino que solo usaremos un rango que en este caso es el <i>numero_de_intentos</i> de la simulación.
+Vamos a crear una variable llamada `persona` que va a inicializar una instancia de la subclase. Despúes definimos el origen de coordenadas <i>(0,0)</i> y creamos una <i>lista[ ]</i> donde guardaremos los valores de las <i>distancias</i> que obtengamos en cada una de la simulaciones. Ejecutaremos un ciclo `for()` para un rango que en este caso es el <i>numero_de_intentos</i> de la simulación.
 
-Posteriormente se ejecutara un bloque de instrucciones donde primero haremos una llamada a la clase `Campo()` y ejecutaremos su método `.anadir_persona`.
+Posteriormente se ejecutara un bloque de instrucciones donde primero haremos una llamada a la clase `Campo()` y ejecutaremos el método de <i>Campo</i> `.anadir_persona` para posicionarla en el punto inicial de nuestra simulación. Posteriormente guardamos en la variable `simulacion_caminata` el valor arrojado al ejecutar la funcion `caminata()` anteriormente añadida, después agregamos ese valor a nuestra lista de <i>distancias</i> y recortamos los decimales. Y finalmente retornamos nuestro valor de <i>distancias</i>.
+
+El siguiente paso será definir `main()` con las funciones que queremos que se ejecuten.
+
+```py
+def main(distancias_de_caminata, numero_de_intentos, tipo_de_tendencia):
+
+    for pasos in distancias_de_caminata:
+        distancias = simular_caminata(pasos, numero_de_intentos, tipo_de_tendencia)
+        distancia_media = round(sum(distancias) / len(distancias), 4)
+        distancia_maxima = max(distancias)
+        distancia_minima = min(distancias)
+        print(f'{tipo_de_tendencia.__name__} caminata aleatoria de {pasos} pasos')
+        print(f'Media = {distancia_media}')
+        print(f'Distancia maxima = {distancia_maxima}')
+        print(f'Distancia minima = {distancia_minima}')
+```
+Nuestra funcion principal `main()` tendra como parámetros <i>la cantidad de pasos, el número de veces que se correrá la simulación, y la clase que utilizaremos</i>.
+
+Ahora, creamos un for para ejecute el siguiente bloque de instrucciones mientras aumenta una variable iteradora `pasos` que representará la cantidad de pasos que dará el individuo en la simulación. Dentro de ese bloque de código creamos la variable `distancias` que hará una llamada a una funcion `simular_caminata()` y guardará el valor arrojado por ella. 
+
+Recordemos que se efectuara varias veces `caminata()` por lo que tendremos diferentes datos y lo que nos interesa son los valores medio, máximo y mínimo de las distancias. Las siguiente instrucciones son para obtener e impimir esos valores deseados usando funciones ya conocidas como `max()`, `min()` y una simple <i>media aritmética</i> redondeada a 3 decimales.
+
+En nuestro entry point tenemos lo siguiente.
+```py
+if __name__ == '__main__':
+    distancias_de_caminata = [10,100,1000,10000]
+    numero_de_intentos = 100
+
+    main(distancias_de_caminata, numero_de_intentos, Aleatorio_Tradicional)  
+```
+Siempre que hagamos un programa de POO debemos de definir nuestra función `main()`, ya que será el punto de entrada donde definimos que harán nuestros objetos.
+
+Aquí es donde definimos la <i>cantidad de pasos</i> que queremos que el individuo efectue en la simulación y podemos ver que definimos una <i>lista[ ]</i> de valores para tener una cantidad considerable de datos. Lo siguiente es definir cuantas veces vamos a ejecutar nuestra simulación que en este caso es de 100.
+
+Y ejecutamos el `main()` que es donde establecemos los datos que queremos que reciba nuestra simulacion que en este caso serán la cantidad de pasos, el número de intentos de la simulación y la subclase `Aleatorio_Tradicional`.
+
+---
+
