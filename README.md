@@ -384,7 +384,7 @@ def caminata(campo, persona, pasos):
 
 Tendremos como parámetros <i>campo, persona y pasos</i> para deescribir el movimiento en el plano. Y pasamos a crear una variable que nos de el punto inicial de cada movimiento que lo que hará será ejecutar el método de <i>Campo</i> `obtener_coordenada()`.
 
-Creamos un ciclo `for _` donde no tenemos variable <i>i</i>, eso significa que solo crearemos el rango que será el número de pasos que dé la persona en la simulación. Y en cada iteración o <i>paso</i> vamos a ejecutar el método de <i>Campo</i> `.mover_persona` y retornará el valor en el que se encuentra actualmente la persona para definirlo como el origen de la siguiente iteración.
+Creamos un ciclo `for _` donde no tenemos variable <i>i</i>, eso significa que solo crearemos el rango que será el número de pasos que dé la persona en la simulación. Y en cada iteración o <i>paso</i> vamos a ejecutar el método de <i>Campo</i> `.mover_persona` y después obtenemos la distancia que hay entre la coordenada de inicio y la otra coordenada con `.distancia`, método definido en el módulo de `coordenada`.
 
 
 Después crearemos la función `simular_caminata()` .
