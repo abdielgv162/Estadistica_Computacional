@@ -28,7 +28,10 @@
        - [Desarrollando la simulación](#desarrollando-la-simulación)
          - [Explicacion de la simulación](#explicacion-de-simulación)
          - [Visualizando la simulación](#visualizando-la-simulación)
-         - [Código final](#código-final)
+         - [Código final](#código-final-con-algunos-cambios)
+  - [Programación estocástica](#programación-estocástica)
+    - [Introducción a la programación estocástica](#introducción-a-la-programación-estocástica)
+    - [Cálculo de probabilidades](#cálculo-de-probabilidades)
 
 ---
 
@@ -229,7 +232,7 @@ Primero vamos a posicionarnos en un plano cartesiano en donde vamos a describir 
     <br></br>
 </div>
 
-Para atacar este problema lo vamos a dividir en 3 clases, la clase `Individuo` que modelará a la persona que efectúa el movimiento, la clase `Campo` que es el entorno en el cual se va a mover y la clase `Coordenada` que modelará el punto en el que se encuentra a lo largo del recorrido.
+Para atacar este problema tomaremos un enfoque de POO, lo vamos a dividir en 3 clases, la clase `Individuo` que modelará a la persona que efectúa el movimiento, la clase `Campo` que es el entorno en el cual se va a mover y la clase `Coordenada` que modelará el punto en el que se encuentra a lo largo del recorrido.
 
 ```py
 import random
@@ -504,14 +507,13 @@ Para evitar confusión recordemos que
 </div>
 
 ----
-#### Código final
+#### Código final con algunos cambios
 
 ```py
-from individuo import Aleatorio_Tradicional
+from individuo import Aleatorio_Tradicional, Aleatorio_ArribaAbajo
 from campo import Campo
 from coordenada import Coordenada
 from bokeh.plotting import figure, show
-
 
 def caminata(campo, tipo_de_tendencia, pasos):
     inicio = campo.obtener_coordenada(tipo_de_tendencia)
@@ -530,7 +532,7 @@ def simular_caminata(pasos, numero_de_intentos, tipo_de_tendencia):
     return distancias
 
 def graficar(x,y):
-    grafica = figure(title = 'Caminata aleatoria', x_axis_label = 'pasos', y_axis_label = 'distancias')
+    grafica = figure(title = 'Caminata aleatoria', x_axis_label = 'X', y_axis_label = 'Y')
     grafica.line(x, y, legend_label = 'Distancia media')
     show(grafica)
 
@@ -560,16 +562,60 @@ def main(distancia, inicio, tipo_de_tendencia,numero_de_intentos,distancias_de_c
         print(f'Media = {distancia_media}')
         print(f'Distancia maxima = {distancia_maxima}')
         print(f'Distancia minima = {distancia_minima}')
-    graficar(distancias_de_caminata, distancias_media_por_caminata)
+    #graficar(distancias_de_caminata, distancias_media_por_caminata)
 
 if __name__ == '__main__':
     distancias_de_caminata = [10,100,1000,10000]
     numero_de_intentos = 100
     distancia = 100000
     inicio = Coordenada(0,0)
-    tipo_de_tendencia = Aleatorio_Tradicional('Abdiel')
+    tipo_de_tendencia = Aleatorio_ArribaAbajo('Abdiel')
     main(distancia, inicio, tipo_de_tendencia, numero_de_intentos, distancias_de_caminata)
 ```
 ---
+## Programación estocástica
+
+### Introducción a la Programación estocástica
+
+* La Programación Estocástica reúne aquellos modelos de optimización en donde uno o más parámetros del problema son modelados a través de variables aleatorias.
+* Un programa es NO  determinísta si cuando se corre el mismo input NO produce el mismo output.
+* Existen problemas que no pueden resolverse con un programa determinístico y por ello requerimos ciertas implementaciones de programación estocástica.
+* La programación estocástica se aprovecha si conocemos las distribuciones de probabilidad del problema planteado o si podemos estimarlas.
+
+Los modelos de optimización estocástica se dividen en dos grandes categorías, por un lado tenemos <i>Modelos con Restricciones Probabilísticas</i> y por otro <i>Modelos con recurso</i>.
+
+<div align="center">
+    <img src="https://www.gestiondeoperaciones.net/wp-content/uploads/2015/11/programacion-matematica.gif" width="400" height="250" >
+</div>
+
+---
+### Cálculo de probabilidades
+
+* La probabilidad es una medida de la certidumbre asociada a un evento, y suele expresarse con un número entre 0 y 1.
+* Una probabilidad de 0 significa que sabemos que jamás sucederá.
+* Una probabilidad de 1 significa que esta garantizado que un evento ocurrirá.
+
+**Ley del complemento**
+<div align="center">
+    La probabilidad de que un evento no ocurra es 1 - la probabilidad de que si ocurrra<br><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/8d00309438f86dbd116c97ceb62b4856c146c941" ><br>
+</div>
+
+**Regla de multiplicación**
+
+<div align="center">
+    si A y B son indepentientes<br><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/944fd278f8321f15de48f2454a3a3ccee3569bc2" ><br>
+    si A y B son dependientes<br><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/52b788617247949b3e34f322afc4850a6545061d">
+</div>
+
+**Regla de adición**
+<div align="center">
+    si<br><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/1325e582d7bc7ad1e30dfef4ee67747895af068e" ><br>
+    entonces:<br><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/03b5945043e1ac5caa5484b0a10a2d5f19d3ca40" >
+</div>
+Por otro lado:
+<div align="center">
+    si<br><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/33fcc7979da3f46605b2730bde1207410d669b46" ><br>
+    entonces:<br><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/0c8de5b03034abcef68b1d393382856497e295a0" >
+</div>
 
 

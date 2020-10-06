@@ -1,4 +1,4 @@
-from individuo import Aleatorio_Tradicional
+from individuo import Aleatorio_Tradicional, Aleatorio_ArribaAbajo
 from campo import Campo
 from coordenada import Coordenada
 from bokeh.plotting import figure, show
@@ -20,7 +20,7 @@ def simular_caminata(pasos, numero_de_intentos, tipo_de_tendencia):
     return distancias
 
 def graficar(x,y):
-    grafica = figure(title = 'Caminata aleatoria', x_axis_label = 'pasos', y_axis_label = 'distancias')
+    grafica = figure(title = 'Caminata aleatoria', x_axis_label = 'X', y_axis_label = 'Y')
     grafica.line(x, y, legend_label = 'Distancia media')
     show(grafica)
 
@@ -50,12 +50,12 @@ def main(distancia, inicio, tipo_de_tendencia,numero_de_intentos,distancias_de_c
         print(f'Media = {distancia_media}')
         print(f'Distancia maxima = {distancia_maxima}')
         print(f'Distancia minima = {distancia_minima}')
-    graficar(distancias_de_caminata, distancias_media_por_caminata)
+    #graficar(distancias_de_caminata, distancias_media_por_caminata)
 
 if __name__ == '__main__':
     distancias_de_caminata = [10,100,1000,10000]
     numero_de_intentos = 100
     distancia = 100000
     inicio = Coordenada(0,0)
-    tipo_de_tendencia = Aleatorio_Tradicional('Abdiel')
+    tipo_de_tendencia = Aleatorio_ArribaAbajo('Abdiel')
     main(distancia, inicio, tipo_de_tendencia, numero_de_intentos, distancias_de_caminata)
