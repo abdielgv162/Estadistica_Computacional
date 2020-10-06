@@ -3,7 +3,6 @@ from campo import Campo
 from coordenada import Coordenada
 from bokeh.plotting import figure, show
 
-
 def caminata(campo, tipo_de_tendencia, pasos):
     inicio = campo.obtener_coordenada(tipo_de_tendencia)
     for _ in range(pasos):
