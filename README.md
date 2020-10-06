@@ -229,7 +229,7 @@ Primero vamos a posicionarnos en un plano cartesiano en donde vamos a describir 
     <br></br>
 </div>
 
-Para atacar este problema lo vamos a dividir en 3 clases, la clase `Individuo` que modelará a la persona que efectúa el movimiento, la clase `Campo` que es el entorno en el cual se va a mover y la clase `Coordenada` que modelará el punto en el que se encuentra el borracho a lo largo del recorrido.
+Para atacar este problema lo vamos a dividir en 3 clases, la clase `Individuo` que modelará a la persona que efectúa el movimiento, la clase `Campo` que es el entorno en el cual se va a mover y la clase `Coordenada` que modelará el punto en el que se encuentra a lo largo del recorrido.
 
 ```py
 import random
