@@ -612,7 +612,8 @@ Los modelos de optimización estocástica se dividen en dos grandes categorías,
     si<br><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/1325e582d7bc7ad1e30dfef4ee67747895af068e" ><br>
     entonces:<br><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/03b5945043e1ac5caa5484b0a10a2d5f19d3ca40" >
 </div>
-Por otro lado:
+
+*Por otro lado:*
 <div align="center">
     si<br><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/33fcc7979da3f46605b2730bde1207410d669b46" ><br>
     entonces:<br><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/0c8de5b03034abcef68b1d393382856497e295a0" >
