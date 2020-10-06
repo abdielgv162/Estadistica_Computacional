@@ -458,7 +458,6 @@ Usaremos <i>bokeh</i> para nuestra simulación, recordemos que para incluir la l
 `py -m venv env` 
 `env\Scripts\activate.bat`  
 `pip install boke`
-`source 
 
 Ahora ya tendremos instalado nuestro paquete no a nivel global sino solo en el área que lo queremos.
 
@@ -502,46 +501,63 @@ Para evitar confusión recordemos que
 
 <div align="center">
     <img src="https://i.imgur.com/tOq2COU.png" width="400" height="400" >
+    <img src="https://i.imgur.com/RnXXxSF.png" width="400" height="400" >
 </div>
 
 ----
-
 #### Código final
 
 ```py
-from bokeh.plotting import figure, show
-
 from individuo import Aleatorio_Tradicional
 from campo import Campo
 from coordenada import Coordenada
+from bokeh.plotting import figure, show
 
-def caminata(campo, persona, pasos):
-    inicio = campo.obtener_coordenada(persona)
+
+def caminata(campo, tipo_de_tendencia, pasos):
+    inicio = campo.obtener_coordenada(tipo_de_tendencia)
 
     for _ in range(pasos):
-        campo.mover_persona(persona)
+        campo.mover_persona(tipo_de_tendencia)
+    return inicio.distancia(campo.obtener_coordenada(tipo_de_tendencia))
 
-    return inicio.distancia(campo.obtener_coordenada(persona))
 
 def simular_caminata(pasos, numero_de_intentos, tipo_de_tendencia):
-    persona = tipo_de_tendencia(nombre='Nombre1')
     origen = Coordenada(0,0)
     distancias = []
 
     for _ in range(numero_de_intentos):
         campo = Campo()
-        campo.anadir_persona(persona, origen)
-        simulacion_caminata = caminata(campo, persona, pasos)
+        campo.anadir_persona(tipo_de_tendencia, origen)
+        simulacion_caminata = caminata(campo, tipo_de_tendencia, pasos)
         distancias.append(round(simulacion_caminata, 1))
     return distancias
 
+
 def graficar(x,y):
     grafica = figure(title = 'Caminata aleatoria', x_axis_label = 'pasos', y_axis_label = 'distancias')
-    grafica.line(x, y, legend = 'Distancia media')
+    grafica.line(x, y, legend_label = 'Distancia media')
     show(grafica)
 
-def main(distancias_de_caminata, numero_de_intentos, tipo_de_tendencia):
-    
+
+def ejecutar_caminata (campo, tipo_de_tendencia, distancias_de_caminata):
+    arreglo_x = []
+    arreglo_y = []
+    arreglo_x.append(campo.obtener_coordenada(tipo_de_tendencia).x)
+    arreglo_y.append(campo.obtener_coordenada(tipo_de_tendencia).y)
+
+    for _ in range(distancias_de_caminata):
+        campo.mover_persona(tipo_de_tendencia) #se actualiza las coordenadas del borracho
+        arreglo_x.append(campo.obtener_coordenada(tipo_de_tendencia).x)
+        arreglo_y.append(campo.obtener_coordenada(tipo_de_tendencia).y)
+    graficar(arreglo_x, arreglo_y)
+
+
+
+def main(distancia, inicio, tipo_de_tendencia,numero_de_intentos,distancias_de_caminata):
+    campo = Campo()
+    campo.anadir_persona(tipo_de_tendencia, inicio)
+    ejecutar_caminata(campo, tipo_de_tendencia, distancia)
     distancias_media_por_caminata = []
 
     for pasos in distancias_de_caminata:
@@ -550,18 +566,22 @@ def main(distancias_de_caminata, numero_de_intentos, tipo_de_tendencia):
         distancia_maxima = max(distancias)
         distancia_minima = min(distancias)
         distancias_media_por_caminata.append(distancia_media)
-        print(f'{tipo_de_tendencia.__name__} caminata aleatoria de {pasos} pasos')
+        print(f'caminata aleatoria de {pasos} pasos')
         print(f'Media = {distancia_media}')
         print(f'Distancia maxima = {distancia_maxima}')
         print(f'Distancia minima = {distancia_minima}')
 
     graficar(distancias_de_caminata, distancias_media_por_caminata)
+
+    
 if __name__ == '__main__':
     distancias_de_caminata = [10,100,1000,10000]
     numero_de_intentos = 100
-
-    main(distancias_de_caminata, numero_de_intentos, Aleatorio_Tradicional)
+    distancia = 100000
+    inicio = Coordenada(0,0)
+    tipo_de_tendencia = Aleatorio_Tradicional('Abdiel')
+    main(distancia, inicio, tipo_de_tendencia, numero_de_intentos, distancias_de_caminata)
 ```
-
 ---
+
 

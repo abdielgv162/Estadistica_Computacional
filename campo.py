@@ -1,3 +1,4 @@
+
 class Campo:
     def __init__(self):
         self.coordenadas_de_persona = {}
@@ -14,3 +15,4 @@ class Campo:
 
     def obtener_coordenada(self, persona):
         return self.coordenadas_de_persona[persona]
+
