@@ -25,8 +25,10 @@
   - [Caminos aleatorios](#caminos-aleatorios)
     - [¿Qué son los caminos aleatorios?](#qué-son-los-caminos-aleatorios)
      - [Caminata aleatoria](#caminana-aleatoria)
-     - [Desarrollando la simulación](#desarrollando-la-simulación)
-       - [Explicacion de la simulación](#explicacion-de-simulación)
+       - [Desarrollando la simulación](#desarrollando-la-simulación)
+         - [Explicacion de la simulación](#explicacion-de-simulación)
+         - [Visualizando la simulación](#visualizando-la-simulación)
+         - [Código final](#código-final)
 
 ---
 
@@ -444,6 +446,122 @@ Siempre que hagamos un programa de POO debemos de definir nuestra función `main
 Aquí es donde definimos la <i>cantidad de pasos</i> que queremos que el individuo efectúe en la simulación y podemos ver que definimos una <i>lista[ ]</i> de valores para tener una cantidad considerable de datos. Lo siguiente es definir cuantas veces vamos a ejecutar nuestra simulación que en este caso es de 100.
 
 Y ejecutamos el `main()` que es donde establecimos los datos que queremos que reciba nuestra simulación que en este caso serán la cantidad de pasos, el número de intentos de la simulación y la subclase `Aleatorio_Tradicional` junto con todo el bloque de intrucciones que escribimos dentro de la función.
+
+---
+
+#### Visualizando la simulación
+
+Usaremos <i>bokeh</i> para nuestra simulación, recordemos que para incluir la libreria en nuestro programa tenemos que generar nuestro ambiente virtual.
+
+ Ejecutaremos la siguiente instruccion en la terminal en la dirección donde esta nuestro programa:
+
+`py -m venv env` 
+`env\Scripts\activate.bat`  
+`pip install boke`
+`source 
+
+Ahora ya tendremos instalado nuestro paquete no a nivel global sino solo en el área que lo queremos.
+
+En nuestro archivo principal de <i>caminata_aleatoria.py</i> agregaremos la linea de código:
+`from bokeh.plotting import figure, show` 
+
+Que, según la [documentación](https://docs.bokeh.org/en/latest/docs/reference/plotting.html) de bokeh, `bokeh.plotting` creará una nueva figura para graficar, la subclase de `Plot` simplifica la gráfica con ejes, cuadriculas y herramientas que trae por default. Mientras que `show` se encarga de mostrar los resutlados.
+
+Ahora vamos a añadir una pequeña función que nos ayudará a graficar:
+
+```py
+def graficar(x,y):
+    grafica = figure(title = 'Caminata aleatoria', x_axis_label = 'pasos', y_axis_label = 'distancias')
+    grafica.line(x, y, legend = 'Distancia media')
+    show(grafica)
+```
+
+Sabemos que si queremos trazar una linea depende de dos parámetros (x,y), con `figure()` nos vamos a encargar de ponerle nombre a las etiquetas del gráfico y de los ejes <i>x</i> y <i>y</i>. Con `grafica.line()` hacemos una llamada al método `line()` de <i>figure</i> que nos facilitará el trazado de la linea y finalmente con `show()` lo que haremos será mostrar el resultado.
+
+Y en el `main()` agregaremos lo datos que requiere nuesta funcion `graficar()` añadida anteriormente:
+
+```py
+distancias_media_por_caminata = []
+
+    for pasos in distancias_de_caminata:
+        .
+        .
+        .
+        distancias_media_por_caminata.append(distancia_media)
+
+     graficar(distancias_de_caminata, distancias_media_por_caminata)
+```
+
+Generamos la variable `distancias_media_por_caminata` que guardará en una lista los valores de `distancia_media` arrojados en cada iteración dentro del ciclo for para posteriormente hacer una llamada a la función `graficar()` pasando como parámetros <i>x</i> y <i>y</i> las `distancias_de_caminata` y `distancias_media_por_caminata` respetivamente. 
+
+Para evitar confusión recordemos que
+
+*  `distancias_de_caminata`: Es igual a la lista de valores <i>[10,100,1000,10000]</i> que representa el número de pasos que dará el indiviuo.
+
+*  `distancias_media_por_caminata`: Representa la <i>distancia media</i> arrojada por nuestro ciclo for.
+
+<div align="center">
+    <img src="https://i.imgur.com/tOq2COU.png" width="400" height="400" >
+</div>
+
+----
+
+#### Código final
+
+```py
+from bokeh.plotting import figure, show
+
+from individuo import Aleatorio_Tradicional
+from campo import Campo
+from coordenada import Coordenada
+
+def caminata(campo, persona, pasos):
+    inicio = campo.obtener_coordenada(persona)
+
+    for _ in range(pasos):
+        campo.mover_persona(persona)
+
+    return inicio.distancia(campo.obtener_coordenada(persona))
+
+def simular_caminata(pasos, numero_de_intentos, tipo_de_tendencia):
+    persona = tipo_de_tendencia(nombre='Nombre1')
+    origen = Coordenada(0,0)
+    distancias = []
+
+    for _ in range(numero_de_intentos):
+        campo = Campo()
+        campo.anadir_persona(persona, origen)
+        simulacion_caminata = caminata(campo, persona, pasos)
+        distancias.append(round(simulacion_caminata, 1))
+    return distancias
+
+def graficar(x,y):
+    grafica = figure(title = 'Caminata aleatoria', x_axis_label = 'pasos', y_axis_label = 'distancias')
+    grafica.line(x, y, legend = 'Distancia media')
+    show(grafica)
+
+def main(distancias_de_caminata, numero_de_intentos, tipo_de_tendencia):
+    
+    distancias_media_por_caminata = []
+
+    for pasos in distancias_de_caminata:
+        distancias = simular_caminata(pasos, numero_de_intentos, tipo_de_tendencia)
+        distancia_media = round(sum(distancias) / len(distancias), 4)
+        distancia_maxima = max(distancias)
+        distancia_minima = min(distancias)
+        distancias_media_por_caminata.append(distancia_media)
+        print(f'{tipo_de_tendencia.__name__} caminata aleatoria de {pasos} pasos')
+        print(f'Media = {distancia_media}')
+        print(f'Distancia maxima = {distancia_maxima}')
+        print(f'Distancia minima = {distancia_minima}')
+
+    graficar(distancias_de_caminata, distancias_media_por_caminata)
+if __name__ == '__main__':
+    distancias_de_caminata = [10,100,1000,10000]
+    numero_de_intentos = 100
+
+    main(distancias_de_caminata, numero_de_intentos, Aleatorio_Tradicional)
+```
 
 ---
 
