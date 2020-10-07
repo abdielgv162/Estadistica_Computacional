@@ -32,7 +32,7 @@
   - [Programación estocástica](#programación-estocástica)
     - [Introducción a la programación estocástica](#introducción-a-la-programación-estocástica)
     - [Cálculo de probabilidades](#cálculo-de-probabilidades)
-
+    - [Simulación de probabilidades](#simulación-de-probabilidades)
 ---
 
 ## Objetivos
@@ -619,4 +619,45 @@ Los modelos de optimización estocástica se dividen en dos grandes categorías,
     entonces:<br><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/0c8de5b03034abcef68b1d393382856497e295a0" >
 </div>
 
+---
+### simulación de probabilidades
+
+Vamos a generar una simulación de un lanzamiento de dados.
+
+Para este tipo de simulaciones tengamos presente la <i>ley de los grandes números</i>, donde se engloban varios teoremas que describen el comportamiento del promedio de una sucesión de variables aleatorias conforme aumenta su número de ensayos.<i>Las leyes de los grandes números explican por qué el promedio de una muestra al azar de una población de gran tamaño tenderá a estar cerca de la media de la población completa</i>.
+
+```py
+import random 
+
+def tirar_dado(numero_de_intentos):
+    secuencia_de_tiros = []
+    for _ in range(numero_de_tiros):
+        tiro = random.choice([1,2,3,4,5,6])
+        secuencia_de_tiros.append(tiro)
+    return secuencia_de_tiros
+
+def main(numero_de_tiros, numero_de_intentos):
+    tiros = []  #En este arreglo guardaremos los datos de los tiros.
+    for _ in range(numero_de_intentos):
+        secuencia_de_tiros = tirar_dado(numero_de_tiros)    
+        tiros.append(secuencia_de_tiros)
+    
+    tiros_con_1 = 0
+    for tiro in tiros:
+        if 1 in tiro:
+            tiros_con_1 += 1
+    
+    probabilidad_de_tiros_con_1 = tiros_con_1 / numero_de_intentos
+    print(f'Probabilidad de obtener POR LO MENOS un 1 en {numero_de_tiros} tiros = {probabilidad_de_tiros_con_1}')
+
+if __name__ == '__main__':
+    numero_de_tiros = int(input('Cuantas veces se va a tirar el dado?: '))
+    numero_de_intentos = int(input('Cuantas veces se va a correr la simulación?: '))
+    main(numero_de_tiros, numero_de_intentos)
+```
+<div align="center">
+    <img src="https://i.imgur.com/l3b6pYe.png" width="400" height="400" >
+    <img src="https://i.imgur.com/4V1UNUc.png" width="400" height="400" >
+    <h7>Podemos ver que mientras aumentamos la cantidad de veces que corremos la simulación podemos aproximarnos cada vez más al valor real <strong>0.1666</strong> a pesar de que en cada simulación tengamos 1 solo lanzamiento.</h7>
+</div>
 
