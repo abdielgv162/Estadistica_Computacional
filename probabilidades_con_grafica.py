@@ -1,7 +1,6 @@
 import random
 from bokeh.plotting import figure, show
 
-
 def tirar_dado(numero_de_intentos):
     secuencia_de_tiros = []
     for _ in range(numero_de_tiros):

@@ -28,11 +28,11 @@
        - [Desarrollando la simulación](#desarrollando-la-simulación)
          - [Explicacion de la simulación](#explicacion-de-simulación)
          - [Visualizando la simulación](#visualizando-la-simulación)
-         - [Código final](#código-final-con-algunos-cambios)
   - [Programación estocástica](#programación-estocástica)
     - [Introducción a la programación estocástica](#introducción-a-la-programación-estocástica)
     - [Cálculo de probabilidades](#cálculo-de-probabilidades)
     - [Simulación de probabilidades](#simulación-de-probabilidades)
+    - [Inferencia estadística](#inferencia-estadística)
 ---
 
 ## Objetivos
@@ -506,72 +506,6 @@ Para evitar confusión recordemos que
     <img src="https://i.imgur.com/RnXXxSF.png" width="400" height="400" >
 </div>
 
-----
-#### Código final con algunos cambios
-
-```py
-from individuo import Aleatorio_Tradicional, Aleatorio_ArribaAbajo
-from campo import Campo
-from coordenada import Coordenada
-from bokeh.plotting import figure, show
-
-def caminata(campo, tipo_de_tendencia, pasos):
-    inicio = campo.obtener_coordenada(tipo_de_tendencia)
-    for _ in range(pasos):
-        campo.mover_persona(tipo_de_tendencia)
-    return inicio.distancia(campo.obtener_coordenada(tipo_de_tendencia))
-
-def simular_caminata(pasos, numero_de_intentos, tipo_de_tendencia):
-    origen = Coordenada(0,0)
-    distancias = []
-    for _ in range(numero_de_intentos):
-        campo = Campo()
-        campo.anadir_persona(tipo_de_tendencia, origen)
-        simulacion_caminata = caminata(campo, tipo_de_tendencia, pasos)
-        distancias.append(round(simulacion_caminata, 1))
-    return distancias
-
-def graficar(x,y):
-    grafica = figure(title = 'Caminata aleatoria', x_axis_label = 'X', y_axis_label = 'Y')
-    grafica.line(x, y, legend_label = 'Distancia media')
-    show(grafica)
-
-def ejecutar_caminata (campo, tipo_de_tendencia, distancias_de_caminata):
-    arreglo_x = []
-    arreglo_y = []
-    arreglo_x.append(campo.obtener_coordenada(tipo_de_tendencia).x)
-    arreglo_y.append(campo.obtener_coordenada(tipo_de_tendencia).y)
-    for _ in range(distancias_de_caminata):
-        campo.mover_persona(tipo_de_tendencia) #se actualiza las coordenadas del borracho
-        arreglo_x.append(campo.obtener_coordenada(tipo_de_tendencia).x)
-        arreglo_y.append(campo.obtener_coordenada(tipo_de_tendencia).y)
-    graficar(arreglo_x, arreglo_y)
-
-def main(distancia, inicio, tipo_de_tendencia,numero_de_intentos,distancias_de_caminata):
-    campo = Campo()
-    campo.anadir_persona(tipo_de_tendencia, inicio)
-    ejecutar_caminata(campo, tipo_de_tendencia, distancia)
-    distancias_media_por_caminata = []
-    for pasos in distancias_de_caminata:
-        distancias = simular_caminata(pasos, numero_de_intentos, tipo_de_tendencia)
-        distancia_media = round(sum(distancias) / len(distancias), 4)
-        distancia_maxima = max(distancias)
-        distancia_minima = min(distancias)
-        distancias_media_por_caminata.append(distancia_media)
-        print(f'caminata aleatoria de {pasos} pasos')
-        print(f'Media = {distancia_media}')
-        print(f'Distancia maxima = {distancia_maxima}')
-        print(f'Distancia minima = {distancia_minima}')
-    #graficar(distancias_de_caminata, distancias_media_por_caminata)
-
-if __name__ == '__main__':
-    distancias_de_caminata = [10,100,1000,10000]
-    numero_de_intentos = 100
-    distancia = 100000
-    inicio = Coordenada(0,0)
-    tipo_de_tendencia = Aleatorio_ArribaAbajo('Abdiel')
-    main(distancia, inicio, tipo_de_tendencia, numero_de_intentos, distancias_de_caminata)
-```
 ---
 ## Programación estocástica
 
@@ -657,7 +591,36 @@ if __name__ == '__main__':
 ```
 <div align="center">
     <img src="https://i.imgur.com/l3b6pYe.png" width="400" height="400" >
+</div>
+
+<div align = "Center">
     <img src="https://i.imgur.com/4V1UNUc.png" width="400" height="400" >
     <h7>Podemos ver que mientras aumentamos la cantidad de veces que corremos la simulación podemos aproximarnos cada vez más al valor real <strong>0.1666</strong> a pesar de que en cada simulación tengamos 1 solo lanzamiento.</h7>
 </div>
+
+---
+
+### Inferencia Estadística
+
+* Con las simulaciones podemos calcular las probabilidades de eventos complejos sabiendo las probabilidades de eventos simples.
+* ¿Qué pasa cuando no sabemos las probabilidades de los eventos simples?
+* La técnicas de la inferencia estadística nos permiten intefir/concluir propiedades de una población a partir de una muestra aleatoria.
+
+<i>El principio guía de la inferencia estadística es que una muestra aleatoria tiende a exhibir las mismas propiedades que la poblacion de la cual fue extraída</i>.
+
+<div align="center">
+    <img src="https://sites.google.com/site/estadisticainfprocesamiento4/_/rsrc/1498259488384/3-inferencia-estadistica/MUESTRA.gif" width="400" height="300" >
+</div>
+
+Recordemos la <strong> Ley fuerte de los grandes números</strong>.
+
+<i>En pruebas indepentientes repetidas con la misma probabilidad P de un resultado, la fracción de desviaciones de P converge a cero conforme la cantidad de pruebas se acerca al infinito</i>.
+
+La ley fuerte de los grandes números establece que si X<sub>1</sub>, X<sub>2</sub>, X<sub>3</sub>, ... es una sucesión infinita de variables aleatorias independientes e idénticamente distribuidas que cumplen E(|Xi|) < ∞   y tienen el valor esperado μ, entonces:
+<div align="center">
+    <img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/4e8f038ff34e2730672e5b7e613cca67e9dba8aa" width="300" height="200" >
+</div>
+es decir que, la probabilidad de que conforme las muestras tienden a infinito, la media de la muestra sea igual a la media de la población, es 1.
+<br></br>
+Esto nos da la oportunidad de que al tener una población de una grán cantidad de datos de los cuales queremos extraer información estadística, basta con extraer una muestra aleatoria y hacer inferencias sobre ella.
 
