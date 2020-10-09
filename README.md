@@ -697,11 +697,14 @@ Es un algoritmo matemático que transforma cualquier bloque arbitrario de datos 
 
 Por ejemplo:
 > Hola, este mensaje se codifico usando MD5 <strong>Mensaje</strong>
+> 
 > bb670be8836c9e5e8300732dbcf05380           <strong>Hash generado</strong>
 
 >hola, este mensaje se codifico usando MD5 <strong>Mensaje</strong>
+>
 >022a8ca36703e0269596b57d902e3a44  <strong>Hash generado</strong>
 
 Podemos ver que al cambiar la primera letra H por una h el hash ha cambiado por completo, de aqui la magía de utilizar esta función. De hecho, son muy usados en el procedimiento del minado de criptoactivos como el bitcoin, especialmente en el método de generación de los bloques del blockchain.
 
 Si tu conoces la fórmula o expresion matemática para generarlo es muy facíl obtener el hash a partir del dato, pero teniendo el hash es muy dificíl y casi imposible dependiendo del protocolo usado, obtener el dato original.
+
