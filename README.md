@@ -37,8 +37,8 @@
       - [Falacia del apostador](#falacia-del-apostador)
       - [Media](#media)
       - [Varianza y desviación estándar](#varianza-y-desviación-estándar)
-  - [información extra](#información-extra)
-      - [¿Cómo funciona un hash?](#cómo-funciona-un-hash) 
+  - [Información extra](#información-extra)
+      - [¿Cómo funciona un HASH?](#cómo-funciona-un-hash) 
 ---
 
 ## Objetivos
@@ -686,25 +686,47 @@ if __name__ == '__main__':
 ---
 #### Varianza y desviación estándar
 
+* La varianza mide qué tan propagados se encuentran un conjunto de valores aleatorios de su media.
+* Mientras que en la media nos da una idea de donde se encuentran los valores, la varianza nos dice que tan dispersos se encuentran esos datos.
+* La varianza siempre debe entenderse <i>con respecto a la media</i>.
+
 
 ---
 
 ### Información extra
 
-#### ¿Cómo funciona un hash?
+#### ¿Cómo funciona un HASH?
 
 Es un algoritmo matemático que transforma cualquier bloque arbitrario de datos en una nueva serie de caracteres con una <i>longitud fija</i>. Para la creación de un hash se toman los datos sin importar el tamaño de estos, y en base a ellos creamos un identificador único.
 
 Por ejemplo:
 > Hola, este mensaje se codifico usando MD5 <strong>Mensaje</strong>
 > 
-> bb670be8836c9e5e8300732dbcf05380           <strong>Hash generado</strong>
+> bb670be8836c9e5e8300732dbcf05380           <strong>HASH generado</strong>
 
 >hola, este mensaje se codifico usando MD5 <strong>Mensaje</strong>
 >
->022a8ca36703e0269596b57d902e3a44  <strong>Hash generado</strong>
+>022a8ca36703e0269596b57d902e3a44  <strong>HASH generado</strong>
 
 Podemos ver que al cambiar la primera letra H por una h el hash ha cambiado por completo, de aqui la magía de utilizar esta función. De hecho, son muy usados en el procedimiento del minado de criptoactivos como el bitcoin, especialmente en el método de generación de los bloques del blockchain.
 
-Si tu conoces la fórmula o expresion matemática para generarlo es muy facíl obtener el hash a partir del dato, pero teniendo el hash es muy dificíl y casi imposible dependiendo del protocolo usado, obtener el dato original.
+Si tu conoces la fórmula o expresion matemática para generarlo es muy facíl obtener el HASH a partir del dato, pero teniendo solo el HASH es muy dificíl y casi imposible dependiendo del protocolo usado, obtener el dato original.
 
+Cabe aclarar que al no contar con llaves, cómo por ejemplo en el protocolo SSH, no cuenta como un algoritmo de cifrado.  
+
+<div align="center">
+    <img src="https://i.blogs.es/b25eb2/375px-cryptographic_hash_function.svg/450_1000.png" width="450" height="350" >
+</div>
+
+Las funciones de HASH son muy usadas en seguridad y criptografía, por ejemplo en el proceso de validación de la autentificación de usuarios, almacenamiento de contraseñas con protocolos de seguridad como PBDKF2 que dificulta recuperar las contraseñas en el caso de un ataque.
+
+El uso de HASHes nos brinda:
+
+* Unidireccionalidad: Hace computacionalmente imposible revertir el proceso y obtener la información previa al algoritmo.
+* Compresión: Suponiendo que la información contenida tiene M bits y el HASH una longitud de N bits con M > N , podemos trabajar con una menor longitud de bits al autentificar la información a través del HASH.
+* Facilidad de cálculo: Los algoritmos de hash son muy eficientes y no requieren grandes potencias de cálculo para ejecutarse ya que tendremos un O(M).
+* Difusión de bits o efecto de avalancha: Como mencionamos en el ejemplo, al modificar un solo bit del mensaje se modifica por completo el HASH obtendio (aproximadamente en la mitad de bits respecto al anterior).
+
+
+
+---
