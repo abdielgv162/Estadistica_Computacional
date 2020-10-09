@@ -33,6 +33,10 @@
     - [Cálculo de probabilidades](#cálculo-de-probabilidades)
     - [Simulación de probabilidades](#simulación-de-probabilidades)
     - [Inferencia estadística](#inferencia-estadística)
+      - [Ley de los grandes números](#ley-de-los-grandes-números)
+      - [Falacia del apostador](#falacia-del-apostador)
+      - [Media](#media)
+      - [Varianza y desviación estándar](#varianza-y-desviación-estándar)
 ---
 
 ## Objetivos
@@ -86,6 +90,11 @@ Recordemos los numeros de Fibonacci.
 <div align="center">
     <img src="https://miro.medium.com/max/1920/1*CQFUHyT83yR5qnLpsN3W4g@2x.png" width="400" height="150" >
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/PascalTriangleFibanacci.svg/360px-PascalTriangleFibanacci.svg.png" width="350" height="250" >
+    <br></br>
+</div>
+
+<div align="center">
+    <img src="https://miro.medium.com/max/946/1*t-QUrXtXpCREqjoorfWsYA.gif" width="400" height="150" >
     <br></br>
 </div>
 
@@ -589,12 +598,10 @@ if __name__ == '__main__':
     numero_de_intentos = int(input('Cuantas veces se va a correr la simulación?: '))
     main(numero_de_tiros, numero_de_intentos)
 ```
-<div align="center">
+<div align="Center">
     <img src="https://i.imgur.com/l3b6pYe.png" width="400" height="400" >
-</div>
-
-<div align = "Center">
     <img src="https://i.imgur.com/4V1UNUc.png" width="400" height="400" >
+    <br></br>
     <h7>Podemos ver que mientras aumentamos la cantidad de veces que corremos la simulación podemos aproximarnos cada vez más al valor real <strong>0.1666</strong> a pesar de que en cada simulación tengamos 1 solo lanzamiento.</h7>
 </div>
 
@@ -614,13 +621,56 @@ if __name__ == '__main__':
 
 Recordemos la <strong> Ley fuerte de los grandes números</strong>.
 
+#### Ley de los grandes números
+
 <i>En pruebas indepentientes repetidas con la misma probabilidad P de un resultado, la fracción de desviaciones de P converge a cero conforme la cantidad de pruebas se acerca al infinito</i>.
 
 La ley fuerte de los grandes números establece que si X<sub>1</sub>, X<sub>2</sub>, X<sub>3</sub>, ... es una sucesión infinita de variables aleatorias independientes e idénticamente distribuidas que cumplen E(|Xi|) < ∞   y tienen el valor esperado μ, entonces:
 <div align="center">
     <img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/4e8f038ff34e2730672e5b7e613cca67e9dba8aa" width="300" height="200" >
 </div>
-es decir que, la probabilidad de que conforme las muestras tienden a infinito, la media de la muestra sea igual a la media de la población, es 1.
+es decir que, que conforme las muestras tienden a infinito, la probabilidad de que la media de la muestra sea igual a la media de la población es 1.
 <br></br>
 Esto nos da la oportunidad de que al tener una población de una grán cantidad de datos de los cuales queremos extraer información estadística, basta con extraer una muestra aleatoria y hacer inferencias sobre ella.
+<br></br>
 
+>Grandes números de individuos, actuando independientemente en un sistema, producen regularidades que no dependen de su coordinacion mutua, de manera que es posible razonar sobre la colectividad sin ningún conocimiento detallado de los individuos. 
+-‘Simeon Denis Poisson’
+
+#### Falacia del apostador:
+
+La falacia del apostador consiste en <i>creer que un evento aleatorio pasado condiciona un evento aleatorio futuro</i>. Y a pesar de que parece un razonamiento bastante intuitivo resulta que el la practica podemos caer en la falacia.
+
+Por ejemplo al creer que:
+* Al ocurrir un evento extremo tendrá que ocurrir un evento menos extremo para nivelar la media.
+
+Cuando en realidad:
+*  La <i>regresión a la media</i> señala que después de ocurrir un evento aleatorio extremo, el siguiente evento <i>probablemente será menos extremo</i>.
+
+---
+
+#### Media
+
+* Es una medida de tendencia central.
+* Comúnmente es conocida como el promedio.
+* La media muestral se define como:
+<div align="center">
+    <img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/41ca76e9bf3724bd14043e8bdc9f4b5dbda43aad" width="450" height="200" >
+</div>
+* La media poblacional se de denota por:  <strong>µ</strong>
+<br></br>
+A continuacion un pequeño programa para calcular la media de una lista de 20 valores aleatorios:
+
+```py
+import random
+
+def media(X):
+    return sum(X) / len(X)
+
+if __name__ == '__main__':
+    X = [random.randint(1,21) for i in range(20)]
+    µ = media(X)
+    print(X)
+    print(µ)
+```
+#### Varianza y desviación estándar
