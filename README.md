@@ -94,7 +94,7 @@ Recordemos los numeros de Fibonacci.
 </div>
 
 <div align="center">
-    <img src="https://miro.medium.com/max/946/1*t-QUrXtXpCREqjoorfWsYA.gif" width="400" height="150" >
+    <img src="https://i.pinimg.com/originals/9a/5f/bf/9a5fbfa150fdeab90a3fd4c39afedf54.gif" width="450" height="250" >
     <br></br>
 </div>
 
