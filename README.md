@@ -37,6 +37,8 @@
       - [Falacia del apostador](#falacia-del-apostador)
       - [Media](#media)
       - [Varianza y desviación estándar](#varianza-y-desviación-estándar)
+  - [información extra](#información-extra)
+      - [¿Cómo funciona un hash?](#cómo-funciona-un-hash) 
 ---
 
 ## Objetivos
@@ -55,31 +57,33 @@
 
 <i>La programación dinámica es es un método para reducir el tiempo de ejecución de un algoritmo mediante la utilización de subproblemas superpuestos y subestructuras óptimas.</i>
 
-El matemático Richard Bellman inventó la programación dinámica en 1953 que se utiliza para optimizar problemas complejos que pueden ser discretizados y secuencializados.
+El matemático Richard Bellman inventó la programación dinámica en 1953 que se utiliza para optimizar problemas complejos que pueden ser <i>discretizados y secuencializados</i>.
 <div align="center">
     <img src="https://upload.wikimedia.org/wikipedia/en/thumb/7/7a/Richard_Ernest_Bellman.jpg/220px-Richard_Ernest_Bellman.jpg" width="300" height="300" >
     <h5>Richard Bellman</h5>
 </div>
 
-Fun fact :
-El nombre de Programación Dinámica lo escogió Bellman para esconder a los patrocinadores gubernamentales que financiaban su investigacion, el hecho que en realidad estaba haciendo matemáticas. Lo usó para que ningún congresista pudiera oponerse a ese nombre tan atractivo.
-
 La programación dinámica permite optimizar ciertos problemas que cuentan con.
 
 - <strong>Subestructura Óptima:</strong>
     <i>Una solución global óptima se puede encontrar al combinar soluciones óptimas de subproblemas locales.</i>
+    
     En otras palabras, los subproblemas se resuelven a su vez dividiéndolos en subproblemas más pequeños hasta que se alcance el caso fácil, donde la solución al problema es trivial. 
 
 - <strong>Problemas empalmados:</strong>
+    
     <i>Una solución óptima que involucra resolver el mismo problema en varias ocasiones (cómo en el caso de la recursiviadad).</i>
     Es decir, que se usa un mismo subproblema para resolver diferentes problemas mayores. Por ejemplo, en la sucesión de Fibonacci <i>(f3 = f1 + f2) y (f4 = f2 + f3)</i>.
 
 La optimizacion para que el programa se ejecute mucho más rápido se logra a través de la <strong>memorización:</strong>
 - <i>La memorización es una técnica para guardar cómputos previos y evitar realizarlos nuevamente.</i>
-- <i>Normalmente se utiliza un diccionario { } , donde las consultas se pueden hacer en O(1) .</i>
+- <i>Normalmente se utiliza un diccionario { } , donde las consultas se pueden hacer en O(1) .</i> 
 - <i>Intercambia: Tiempo vs Espacio en memoria.</i>
   
 La <strong>memorización</strong> nos ayuda a evitar computos adicionales, guardando el resultado de computaciones previas en alguna estructura de datos que podemos consultar rápidamente.
+
+<i>Fun fact</i> :
+El nombre de Programación Dinámica lo escogió Bellman para esconder a los patrocinadores gubernamentales que financiaban su investigacion, el hecho que en realidad estaba haciendo matemáticas. Lo usó para que ningún congresista pudiera oponerse a financiarlo con ese nombre tan atractivo.
 
 ---
 
@@ -98,7 +102,7 @@ Recordemos los numeros de Fibonacci.
     <br></br>
 </div>
 
-La forma recursiva de Fibonacci <i>f(n) = f<sub>n-1</sub> + f<sub>n-2 </sub></i> es muy fácil de implementar en código, pero es poco eficiente ya que repetimos el mismo computo muchas veces, aumentando innecesariamente la cantidad de iteraciones.
+La forma recursiva de Fibonacci <i>f(n) = f<sub>n-1</sub> + f<sub>n-2 </sub></i> es muy fácil de implementar en código, pero es poco eficiente ya que repetimos el mismo computo muchas veces, aumentando innecesariamente la cantidad de iteraciones y, por lo tanto, el tiempo de ejecución.
 
 Para optimizar esta función haremos uso de la memorización anteriormente mencionada.
 Aqui tenemos una implementación de <i>Fibonacci Recursivo vs Fibonacci Dinámico: </i>
@@ -144,7 +148,7 @@ Definimos la función con un parámetro <i>n</i> de entrada, ahora en el primer 
 
 De no ser así, retornaremos una llamada recursiva de Fibonacci para el numero anterior <i>(n-1)</i> más el numero anterior a ese <i>(n-2)</i>.
 
-Recordemos que la recursividad es la forma en la cual se especifica un proceso basado en su propia definición, que en este caso es una función que se llama a sí misma.
+Recordemos que la recursividad es la forma en la cual se especifica un proceso basado en su propia definición, que en este caso es una función llamandose a sí misma.
 
 ```py
 def fibonacci_dinamico(n, memoria={}):
@@ -180,11 +184,11 @@ Si tenemos como llave <i>[n]</i> en el diccionario, regresemos <i>n</i>.
 ```
 El bloque `except` se encarga de capturar la excepción y nos da la oportunidad de procesarla.
 
-Si no tenemos como llave <i>[n]</i> en el diccionario, anticiparemos el `KeyError` que nos saldría al intentar acceder a una llave que no existe.
+Si NO tenemos como llave <i>[n]</i> en el diccionario, anticiparemos el `KeyError` que nos saldría al intentar acceder a una llave que no existe.
 
-Nos anticiparemos llamando a la funcion `fibonacci_dinamico()` para <i>(n-1)</i> y <i>(n-2)</i>, pero en este caso tendremos como parametro extra el diccionario `memoria{}` para después guardar ahí el resultado anterior, y retornaremos este valor para la siguiente iteración.
+Nos anticiparemos llamando a la funcion `fibonacci_dinamico()` para <i>(n-1)</i> y <i>(n-2)</i>, pero en este caso tendremos como parametro extra el diccionario `memoria{}` que es donde guardaremos el resultado anterior para, posteriormente, tomar este valor en la siguiente iteración.
 
-Esta es la parte diferenciadora entre la versión recursiva simple y la versión dinámica, ya que al tener los resultados de iteraciones anteriores dentro del diccionario nos ahorraremos el tiempo del calcular todos los resultados anteriores de <i>n</i> para solo tener que buscar ese resultado anterior dentro del diccionario y sumarlo, lo cual hace MUCHO más eficiente el algoritmo.
+Esta es la parte diferenciadora entre la versión <i>recursiva simple</i> y <i>la versión dinámica</i>, ya que al tener los resultados de iteraciones anteriores dentro del diccionario nos ahorraremos el tiempo del calcular todos los resultados anteriores de <i>n</i> para solo tener que buscar ese resultado anterior dentro del diccionario y sumarlo, lo cual hace MUCHO más eficiente el algoritmo.
 
 Tan solo calcular <i>n=50</i> con `fibonacci_recursivo()` toma muchísimo más tiempo que calcular <i>n=500</i> con `fibonacci_dinamico()`.
 
@@ -196,7 +200,9 @@ import sys
     sys.setrecursionlimit(10000)
 ```
 
-Estas lineas nos ayudan a incrementar el límite de recursividad limitado por python, importando la librería `sys` para seleccionar el limite de recursión.
+Estas lineas nos ayudan a incrementar el límite de recursividad limitado por python, importando la librería `sys` para seleccionar el limite de recursión. 
+
+NOTA: Hay que tener cuidado con incrementar demasiado el limite de recursividad.
 
 ---
 
@@ -204,9 +210,11 @@ Estas lineas nos ayudan a incrementar el límite de recursividad limitado por py
 
 El algoritmo que usa Python internamente para buscar un elemento en un diccionario es muy distinto que el que utiliza para buscar en listas.
 
-<i>Para buscar en las listas, se utiliza un algoritmos de comparación que tarda cada vez más a medida que la lista se hace más larga. En cambio, para buscar en diccionarios se utiliza un algoritmo llamado hash, que se basa en realizar un cálculo numérico sobre la clave del elemento, y tiene una propiedad muy interesante: sin importar cuántos elementos tenga el diccionario, el tiempo de búsqueda es siempre aproximadamente igual O(1).
+Para buscar en las listas, se utiliza un algoritmos de comparación que tarda cada vez más a medida que la lista se hace más larga. En cambio, para buscar en diccionarios se utiliza un algoritmo llamado <i>hash</i>, que se basa en realizar un cálculo numérico sobre la <i>clave del elemento</i>, y tiene una propiedad muy interesante, sin importar cuántos elementos tenga el diccionario, el tiempo de búsqueda es siempre <i>aproximadamente</i> igual O(1).
 
-Este algoritmo de hash es también la razón por la cual las claves de los diccionarios deben ser inmutables, ya que la operación hecha sobre las claves debe dar siempre el mismo resultado, y si se utilizara una variable mutable esto no sería posible.</i>
+Este algoritmo de hash es también la razón por la cual las claves de los diccionarios deben ser inmutables, ya que la operación hecha sobre las claves debe dar siempre el mismo resultado, y si se utilizara una variable mutable esto no sería posible.
+
+[¿Cómo funciona un hash?](#cómo-funciona-un-hash).
 
 ---
 
@@ -258,7 +266,7 @@ class Aleatorio_Tradicional(Individuo):
 ```
 Recordando el concepto de <i>herencia de POO</i>, podemos observar que estamos creando la superclase `Individuo` que solo recibe como parametro nombre (recordemos que `self` es obligatorio en cada una ya que hace referencia a la instancia).
 
-Después extendemos la superclase `Individuo` hacia la subclase `Aleatorio_Tradicional`, en la cual crearemos el método `camina()` donde gracias al método `random.choice` simplemente devolverá una selección aleatoria de los valores de nuestra <i>tupla</i> que representa las diferentes direcciones en las que puede dar un paso.
+Después extendemos la superclase `Individuo` hacia la subclase `Aleatorio_Tradicional` que modelará una persona que se mueve aleatoriamente con 25% de probabilidad en cada una de las 4 direcciones del plano, en la cual crearemos el método `camina()` donde gracias al método `random.choice` simplemente devolverá una selección aleatoria de los valores de nuestra <i>tupla</i> que representa las diferentes direcciones en las que puede dar un paso.
 
 Para la clase `Coordenadas` tenemos lo siguiente.
 
@@ -319,7 +327,7 @@ El <i>tecer método</i> `obtener_coordenada` solo tendrá como parametro al indi
 </div>
 <br></br>
 
-*Aclaracion: Los tres codigos son archivos independientes.*
+*NOTA: Los tres codigos son archivos independientes.*
 
 ---
 
@@ -567,7 +575,9 @@ Los modelos de optimización estocástica se dividen en dos grandes categorías,
 
 Vamos a generar una simulación de un lanzamiento de dados.
 
-Para este tipo de simulaciones tengamos presente la <i>ley de los grandes números</i>, donde se engloban varios teoremas que describen el comportamiento del promedio de una sucesión de variables aleatorias conforme aumenta su número de ensayos.<i>Las leyes de los grandes números explican por qué el promedio de una muestra al azar de una población de gran tamaño tenderá a estar cerca de la media de la población completa</i>.
+Para este tipo de simulaciones tengamos presente la <i>ley de los grandes números</i>, donde se engloban varios teoremas que describen el comportamiento del promedio de una sucesión de variables aleatorias conforme aumenta su número de ensayos.<i>
+
+Las leyes de los grandes números explican por qué el promedio de una muestra al azar de una población de gran tamaño tenderá a estar cerca de la media de la población completa</i>.
 
 ```py
 import random 
@@ -673,4 +683,25 @@ if __name__ == '__main__':
     print(X)
     print(µ)
 ```
+---
 #### Varianza y desviación estándar
+
+
+---
+
+### Información extra
+
+#### ¿Cómo funciona un hash?
+
+Es un algoritmo matemático que transforma cualquier bloque arbitrario de datos en una nueva serie de caracteres con una <i>longitud fija</i>. Para la creación de un hash se toman los datos sin importar el tamaño de estos, y en base a ellos creamos un identificador único.
+
+Por ejemplo:
+> Hola, este mensaje se codifico usando MD5 <strong>Mensaje</strong>
+> bb670be8836c9e5e8300732dbcf05380           <strong>Hash generado</strong>
+
+>hola, este mensaje se codifico usando MD5 <strong>Mensaje</strong>
+>022a8ca36703e0269596b57d902e3a44  <strong>Hash generado</strong>
+
+Podemos ver que al cambiar la primera letra H por una h el hash ha cambiado por completo, de aqui la magía de utilizar esta función. De hecho, son muy usados en el procedimiento del minado de criptoactivos como el bitcoin, especialmente en el método de generación de los bloques del blockchain.
+
+Si tu conoces la fórmula o expresion matemática para generarlo es muy facíl obtener el hash a partir del dato, pero teniendo el hash es muy dificíl y casi imposible dependiendo del protocolo usado, obtener el dato original.
