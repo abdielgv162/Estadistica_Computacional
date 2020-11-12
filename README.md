@@ -1,4 +1,4 @@
-###### Bienvenid@! :purple_heart: Puedes encontrame en: 
+###### Bienvenid@! :purple_heart: Puedes encontrarme en: 
 [![Twitter](https://user-images.githubusercontent.com/282759/84680160-40c90c80-af00-11ea-8390-bb86858c5fa5.png)](https://twitter.com/AbdielGuerrer20) [![LinkedIn](https://user-images.githubusercontent.com/282759/84680162-4161a300-af00-11ea-912c-8f32e5cc1676.png)](https://www.linkedin.com/in/abdiel-guerrero-360a39195/)
 
 [![Twitter: AbdielGuerrero](https://img.shields.io/twitter/follow/AbdielGuerrer20?style=social)](https://twitter.com/AbdielGuerrer20)[![Linkedin:Abdiel Guerrero](https://img.shields.io/badge/-AbdielGuerrero-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/abdiel-guerrero-360a39195/)](https://www.linkedin.com/in/abdiel-guerrero-360a39195/)[![GitHub abdielgv162](https://img.shields.io/github/followers/abdielgv162?label=follow&style=social)](https://github.com/abdielgv162)[![Instagram: AbdielGuerrero](https://img.shields.io/badge/-abdielgv162-blue?style=flat-square&logo=Instagram&logoColor=white&link=https://www.instagram.com/abdielgv162/)](https://www.instagram.com/abdielgv162/)
@@ -686,9 +686,28 @@ if __name__ == '__main__':
 ---
 #### Varianza y desviación estándar
 
+#### Varianza
 * La varianza mide qué tan propagados se encuentran un conjunto de valores aleatorios de su media.
 * Mientras que en la media nos da una idea de donde se encuentran los valores, la varianza nos dice que tan dispersos se encuentran esos datos.
 * La varianza siempre debe entenderse <i>con respecto a la media</i>.
+
+#### Desviación estándar
+* La desviación estándar es la raíz cuadrada de la varíanza.
+* Nos permite entender, tambíen, la propagación relativa con la media.
+* La ventaja sobre la varianza es que la desviación estándar está en las mismas unidades que la media (No está al cuadrado).
+
+![Varianza y desviación estándar](https://i.ytimg.com/vi/U0lsUBBzn94/maxresdefault.jpg)
+
+
+```py
+```
+
+
+
+
+
+
+
 
 
 ---
