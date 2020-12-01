@@ -667,8 +667,8 @@ Cuando en realidad:
 <div align="center">
     <img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/41ca76e9bf3724bd14043e8bdc9f4b5dbda43aad" width="450" height="200" >
 </div>
-* La media poblacional se de denota por:  <strong>µ</strong>
-<br></br>
+
+*NOTA:* La media poblacional se de denota por:  <strong>µ</strong>
 A continuacion un pequeño programa para calcular la media de una lista de 20 valores aleatorios:
 
 ```py
@@ -696,8 +696,11 @@ if __name__ == '__main__':
 * Nos permite entender, tambíen, la propagación relativa con la media.
 * La ventaja sobre la varianza es que la desviación estándar está en las mismas unidades que la media (No está al cuadrado).
 
-![Varianza y desviación estándar](https://i.ytimg.com/vi/U0lsUBBzn94/maxresdefault.jpg)
+<div align="center">
+    <img src="https://i.ytimg.com/vi/U0lsUBBzn94/maxresdefault.jpg" width="450" height="300" >
+</div>
 
+Veamos como implementar la varianza para variables aleatorias discretas.
 
 ```py
 ```
