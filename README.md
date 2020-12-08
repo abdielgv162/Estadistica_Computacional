@@ -37,8 +37,14 @@
       - [Falacia del apostador](#falacia-del-apostador)
       - [Media](#media)
       - [Varianza y desviación estándar](#varianza-y-desviación-estándar)
+      - [Distribución normal](#distribución-normal)
+        - [Regla empírica](#regla-empírica)
+      - [Simulaciones de montecarlo](#simulaciones-de-montecarlo)
+        - [Simulación de barajas](#simulación-de-barajas)
   - [Información extra](#información-extra)
-      - [¿Cómo funciona un HASH?](#cómo-funciona-un-hash) 
+      - [¿Cómo funciona un HASH?](#cómo-funciona-un-hash)
+    
+      
 ---
 
 ## Objetivos
@@ -617,7 +623,7 @@ if __name__ == '__main__':
 
 ---
 
-### Inferencia Estadística
+## Inferencia Estadística
 
 * Con las simulaciones podemos calcular las probabilidades de eventos complejos sabiendo las probabilidades de eventos simples.
 * ¿Qué pasa cuando no sabemos las probabilidades de los eventos simples?
@@ -664,6 +670,7 @@ Cuando en realidad:
 * Es una medida de tendencia central.
 * Comúnmente es conocida como el promedio.
 * La media muestral se define como:
+  
 <div align="center">
     <img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/41ca76e9bf3724bd14043e8bdc9f4b5dbda43aad" width="450" height="200" >
 </div>
@@ -684,7 +691,7 @@ if __name__ == '__main__':
     print(µ)
 ```
 ---
-#### Varianza y desviación estándar
+### Varianza y desviación estándar
 
 #### Varianza
 * La varianza mide qué tan propagados se encuentran un conjunto de valores aleatorios de su media.
@@ -703,14 +710,179 @@ if __name__ == '__main__':
 Veamos como implementar la varianza para variables aleatorias discretas.
 
 ```py
+import random
+import math
+
+def media(X):
+    return sum(X) / len(X)
+
+def varianza(X):
+    mu = media(X)
+
+    contador = 0
+    for x in X:
+        contador += (x - mu)**2
+
+    return contador / len(X)
+
+def desviacion_estandar(X):
+    return math.sqrt(varianza(X))
+
+if __name__ == '__main__':
+    X = [random.randint(1,2) for i in range(20)]
+    mu = media(X)
+    var = varianza(X)
+    sigma = desviacion_estandar(X)
+
+    print(f'\nValores random:\n{X}\n')
+    print(f'Media: {mu}\n')
+    print(f'Varianza: {round(var,3)}\n')
+    print(f'Desviación estándar: {round(sigma,3)}\n')
 ```
 
+---
+
+### Distribución normal
+
+ * Es una de las distribuciones más recurrentes en cualquier ámbito.
+
+ * Se define completamente por su **media** y su **desviación estándar**.
+
+ * Permite calcular intervalos de confianza con la regla empírica.
+
+<div align="center">
+    <img src="https://i.imgur.com/LRHrqwI.png" width="450" height="200" >
+</div>
+
+#### Regla empírica
+
+* También conocida como la regla 68-95-99.7.
+
+*  Señala cuál es la dispersión de los datos en una distribución normal a uno, dos y tres sigmas. 
+
+* Permite calcular probabilidades con la densidad de la distribución normal.
+
+<div align="center">
+    <img src="https://i.imgur.com/LHx9pct.png" >
+</div>
+
+<div align="center">
+    <img src="https://i.imgur.com/IdwuHD8.png" >
+</div>
+
+---
+
+### Simulaciones de montecarlo
+
+* Permite crear simulaciones para predecir el resultado de un problema.
+* Permite convertir problemas determinísticos en problemas estocásticos.
+* Es utilizado en una gran diversidad de áreas, desde la ingeniería hasta la biología y el derecho.
+
+#### Simulación de Barajas
+
+Un pequeño programa para calcular la probabilidad de obtener un color o corrida 
+
+```py
+import random
+import collections
 
 
+def crear_baraja():
+    NEGRAS = ['Picas','Treboles']
+    ROJAS = ['Corazones','Diamantes']
+    NUMEROS = ['A','2','3','4','5','6','7','8','9','10','J','Q','K']
+    baraja = []
+
+    for i in NEGRAS:
+        for j in NUMEROS:
+            baraja.append((i,j))
+    for i in ROJAS:
+        for j in NUMEROS:
+            baraja.append((i,j))
+    return baraja
+    #print(baraja)
 
 
+def tomar_una_mano(tamano_de_mano):
+    baraja = crear_baraja()
+    mano = random.sample(baraja, tamano_de_mano)
+    return mano
+
+def main(tamano, intentos):
+    baraja = crear_baraja()#Llamamos a la creación de las cartas
+
+    manos = []
+    for _ in range (int(intentos)):#Por cada intento tomaremos n cartas
+        mano = tomar_una_mano(tamano)
+        #print(f'\n {mano}')
+        manos.append(mano)
+
+    #print(f'\n {manos}\n')
+
+    corrida = 0
+    for i in manos:
+        valores = []
+        for j in i:
+            valores.append(j[0])
+        #print(valores)
+        contador = dict(collections.Counter(valores))#Cuenta cuantas veces aparece un valor por cada ejecución
+        #print(contador)
+
+        
+        for i in contador.values():##Usamos values por que cualquiera que tenga 5 cartas del
+             #mismo palo es una corrida. De querer obtener un valor en concreto usariamos el 
+             #valor contenido en el contador y no el cuantas veces aparece.
+            if i == 5:
+                corrida += 1
+    
+    probabilidad_corrida = corrida / intentos
+
+    print(f'La probabilidad de una corrida es de: {probabilidad_corrida}')
 
 
+if __name__ == '__main__':
+    tamano = int(input('Ingrese el tamaño de la mano: '))
+    intentos_simulacion = int(input('Cuantas veces se ejecutará la simulación?:'))
+    main(tamano, intentos_simulacion)
+```
+
+---
+
+#### Cálculo de PI
+
+¿Cómo podemos cálcular pi con aleatoriedad?
+
+Imaginemos un circulo unitario iscrito en un cuadrado de 2x2. De esta forma tendremos un cuadrado con área = 4 y un circulo de área = Pi
+
+<div align="center">
+    <img src="https://i.imgur.com/makBJRy.png">
+</div>
+<br>
+
+Ahora, imaginemos que lanzamos aleatoriamente unos puntitos dentro del cuadrado, de manera de que todos queden dentro del cuadrado, pero solo algunos dentro del circulo. Al hacer esto existirá una proporción entre los puntitos dentro del circulo y dentro de todo el cuadrado (por tratarse de un subconjunto de los puntitos dentro del cuadrado).
+
+Tendremos que la relación de puntitos en el circulo respecto a los puntitos del cuadrado sera igual a la proporción existente entre las areas del círculo y el área del cuadrado.
+
+<div align="center">
+    <img src="https://i.imgur.com/y2VZUOO.png">
+</div>
+<br>
+
+Y como en este caso tenemos que r =1, podremos despejar la ecuación anterior y obtener que pi será igual a el numero de puntos dentro del circulo por el área del cuadrado entre el numero de puntos totales (puntos dentro del cuadrado).
+
+<div align="center">
+    <img src="https://i.imgur.com/DDcPv3S.png">
+</div>
+<br>
+
+**¿Y cómo sabremos que un punto estuvo dentro del circulo?**
+
+Sabemos que el circulo tiene radio *r=1* por lo que podemos calcular la distancia de un punto al origen de coordenadas utilzando teorems de pitágoras teniendo los 2 casos en que:
+
+* El radio **r <= 1** entonces esta dentro del círculo.
+* El radio **r > 1** entonces esta fuera del círculo.
+
+Obviamente teniendo en cuenta que TODOS los puntos tienen que estar si o si dentro del cuadrado, ya que de ahi obtuvimos nuestra realción de las proporciones.
 
 
 ---
