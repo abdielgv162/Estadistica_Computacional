@@ -41,6 +41,13 @@
         - [Regla empírica](#regla-empírica)
       - [Simulaciones de montecarlo](#simulaciones-de-montecarlo)
         - [Simulación de barajas](#simulación-de-barajas)
+      - [Muestreo e intervalos de confianza](#muestreo-e-intervalos-de-confianza)
+        - [Muestreo](#muestreo)
+        - [Teorema del límite central](#teorema-del-límite-central)
+      - [Datos experimentales](#datos-experientales)
+        - [Cómo trabajar con datos experimentales?](#cómo-trabajar-con-datos-experimentales)
+      - [Regresión lineal](#regresión-lineal)
+    - [Conclusiones](#conclusiones)
   - [Información extra](#información-extra)
       - [¿Cómo funciona un HASH?](#cómo-funciona-un-hash)
     
@@ -877,13 +884,165 @@ Y como en este caso tenemos que r =1, podremos despejar la ecuación anterior y 
 
 **¿Y cómo sabremos que un punto estuvo dentro del circulo?**
 
-Sabemos que el circulo tiene radio *r=1* por lo que podemos calcular la distancia de un punto al origen de coordenadas utilzando teorems de pitágoras teniendo los 2 casos en que:
+Sabemos que el circulo tiene radio *r=1* por lo que podemos calcular la distancia de un punto al origen de coordenadas utilzando teorema de pitágoras teniendo los 2 casos en que:
 
 * El radio **r <= 1** entonces esta dentro del círculo.
 * El radio **r > 1** entonces esta fuera del círculo.
 
 Obviamente teniendo en cuenta que TODOS los puntos tienen que estar si o si dentro del cuadrado, ya que de ahi obtuvimos nuestra realción de las proporciones.
 
+Veamos la implementación en código
+
+```py
+import random 
+import math
+from funciones_estadisticas import desviacion_estandar, media
+#De nuestro programa anterior importamos estas funciones que son de utilidad.
+
+
+def lanzar_puntitos(total_de_puntitos):
+    adentro_circulo = 0 #Inicialmente no hay ninguno
+
+    for _ in range(total_de_puntitos):
+        x = random.random() * random.choice([-1,1])
+        y= random.random() *  random.choice([-1,1])
+        #Originalmente arroja un valor entre 0 y 1
+        #Por ello lo multiplicamos por -1 o 1 aleatoriamente para tener 
+        #el rango de puntos dentro del cuadrado.
+        pitagorazo = math.sqrt(x**2 + y**2)
+
+        if pitagorazo <= 1: 
+                adentro_circulo += 1
+
+    return (4 * adentro_circulo) / (total_de_puntitos)
+        #Recordemos que el 4 representa el area de nuestro cuadrado de 2x2
+
+
+def estimacion(total_de_puntitos, intentos):
+    estimados = []
+
+    for _ in range (intentos):
+        estimacion_pi = lanzar_puntitos(total_de_puntitos)
+        estimados.append(estimacion_pi)
+
+    media_estimados = media(estimados)
+    sigma = desviacion_estandar(estimados)
+    print(f'Estimado = {round(media_estimados , 5)}, desviación estándar = {round(sigma , 5)} de un total de {total_de_puntitos} lanzamientos.')
+    return (media_estimados, sigma)
+
+def estimar_pi(precision, numero_de_intentos):
+    numero_de_puntitos = 10000
+    sigma = precision
+
+    while sigma >= precision / 1.96:
+    #95% de confiabilidad
+        media, sigma = estimacion(numero_de_puntitos, numero_de_intentos)
+        numero_de_puntitos *= 2
+    
+    return media 
+
+
+if __name__ == '__main__':
+    estimar_pi(0.01, 100)
+```
+
+Si ejecutamos el programa podremos darnos cuenta que a medida que ejecutamos más y más veces con más puntos nuestra desviación estándar ira disminuyendo, pero a pesar de ello el valor obtenido en algunos casos comenzara a alejarse del valor real de pi.
+
+Esto ocurre por que estamos obteniendo un resultado estádistico cada vez más certero según el método de inferencia estádistica que estemos empleando, y esto no tiene necesariamente que coincidir con la axactitud del valor real ya que este tambien dependerá de que tan bueno sea nuestro algoritmo, que tan buena sea la aproximación que tengamos y que tipo de tecnicas de inferencia estamos utilizando.
+
+Aquí tenemos una diferencia entre una respuesta estadisticamente válida y una respuesta válida.
+
+---
+
+### Muestreo e intervalos de confianza
+
+#### Muestreo
+
+* Hay ocasiones en las que no tenemos acceso a toda la población que queremos explorar.
+
+* Uno de los grandes descubrimientos de la estadística es que, las meustras aleatorias tienen a mostrar las mismas propiedades de la población objetivo.
+
+* El tipo de muestreo que hemos hecho hasta ahora es muestreo probabilístico.
+
+* En un muestreo aleatorio cualquier miembtro de la población tiene la misma probabilidad de ser escogido.
+
+* En un muestreo estratificado tomamos en consideración las características de la población para partirla en subgrupos o subconjuntos de ella y luego tomamos muestras de cada uno de esos subgrupos.
+  * Esto incrementa la probabilidad de que el muestreo sea representativo de la población.
+  * Nos ayuda a evitar sesgos.
+  
+
+#### Teorema del límite central
+
+* Es uno de los teoremas más importantes de la estadística.
+
+* Establece que muestras aleatorias de cualquier distribución van a tener una distribución normal (la distribución de las medias de las muestras tiende a ser una distribución normal).
+
+* Mientras aumentamos la cantidad de muestras aumentamos la aproximación hacia una distribución normal.
+
+* Permite entender cualquier distribución como la distribución normal de sus medias y eso nos permite aplicar todo lo que ya sabemos de distribuciones normales (ademas de ser más intuitiva al analizar el problema con esa distribución).
+  
+<div align="center">
+    <img src="https://i.imgur.com/XRabKii.png">
+</div>
+
+---
+
+### Datos experientales
+
+#### ¿Cómo trabajar con datos experimentales?
+
+* Es la aplicación del método científico.
+
+* Es necesario comenzar con una teoría o hipótesis sobre el resultado al que se quiere llegar.
+
+* Basado en la hipótesis se debe crear un experimento para validar o flasear la hipótesis.
+
+* Se valida o falsea una hipótesis midiendo la diferencia entre las mediciones experimentales y aquellas mediciones predichas por la hipótesis.
+
+#### Regresión lineal
+
+* Permite aproximar una función a un conjunto de datos obtenidos de manera experimental.
+
+* No necesariamente permite aproximar funciones lineales, sino que sus variantes permiten aproximar cualquier función polinómica.
+
+A continuación estaremos trabajando con algunas librerias un poco más avanzadas y muchas veces requerimos instalarlas desde conda, pero para esta ocasión usaremos un ambiente distinto que ya tiene incorporadas las librerias necesarias; usaremos [Google Colab](https://colab.research.google.com/notebooks/intro.ipynb#recent=true) que es una implementación de JupyterNotebooks.
+
+
+```py
+import numpy as np #Importamos la libreria
+x = np.array([0,1,2,3,4,5,6,7,8])#Convierte una lista en vectores
+#Introducimos los valores de la variable independiente del experimento
+y = np.array([1,2,3,5,4,6,8,7,9])#Los resultados del experimento
+
+coeffs = np.polyfit(x, y, 1)#Obtenemos nuestros coeficientes
+print(coeffs)
+
+a = coeffs[0]
+b = coeffs[1]
+estimado_y = (a*x) + b #Formamos una recta 
+
+import matplotlib.pyplot as plt
+plt.plot(x, estimado_y)
+plt.scatter(x, y)
+plt.show()
+```
+
+Algunas libreria para la visualización en python son:
+
+  * Bokhe
+  * Mathplitlib
+  * Seaborn
+  * ploty
+  * Altair
+  
+---
+
+## Conclusiones
+
+* La programación dinámica permite optimizar problemas que tienen subestructura óptima y subproblemas empalmados.
+* Las computadoras pueden resolver problemas determinísticos y estocásticos.
+* Podemos generar simulaciones computacionales para responder preguntas del mundo real.
+* La interferencia estadística nos permite tener confianza de que nuestras simulaciones arrojan resulados válidos.
 
 ---
 
@@ -913,7 +1072,7 @@ Cabe aclarar que al no contar con llaves, cómo por ejemplo en el protocolo SSH,
 </div>
 
 Las funciones de HASH son muy usadas en seguridad y criptografía, por ejemplo en el proceso de validación de la autentificación de usuarios, almacenamiento de contraseñas con protocolos de seguridad como PBDKF2 que dificulta recuperar las contraseñas en el caso de un ataque.
-
+-
 El uso de HASHes nos brinda:
 
 * Unidireccionalidad: Hace computacionalmente imposible revertir el proceso y obtener la información previa al algoritmo.
